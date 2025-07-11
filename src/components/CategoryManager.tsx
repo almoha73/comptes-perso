@@ -29,20 +29,20 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
       <div className="mb-3">
         <button 
           type="button" 
-          className="gradient-btn btn-sm"
+          className="elegant-btn btn-sm"
           onClick={() => setShowManager(true)}
         >
           <TagsFill className="me-2" size={16} />
-          🏷️ Gérer les catégories
+          Gérer les catégories
         </button>
       </div>
     );
   }
 
   return (
-    <div className="gradient-form mb-3 p-4">
+    <div className="elegant-form mb-3 p-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h6 className="mb-0 gradient-text" style={{ fontWeight: '700' }}>
+        <h6 className="mb-0 text-white" style={{ fontWeight: '600' }}>
           <TagsFill className="me-2" size={18} />
           Gestion des catégories
         </h6>
@@ -57,12 +57,12 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
           <div className="input-group">
             <input
               type="text"
-              className="form-control gradient-input"
+              className="form-control elegant-input"
               placeholder="Nouvelle catégorie"
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
             />
-            <button type="submit" className="gradient-btn gradient-btn-info">
+            <button type="submit" className="elegant-btn elegant-btn-success">
               <PlusCircle className="me-1" size={16} />
               Ajouter
             </button>
@@ -72,7 +72,7 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
         <div className="row g-2">
           {categories.map(category => (
             <div key={category} className="col-auto">
-              <div className="gradient-badge">
+              <div className="elegant-badge">
                 <span className="me-2">{category}</span>
                 <button
                   type="button"
