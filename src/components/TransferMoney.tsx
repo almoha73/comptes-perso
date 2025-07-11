@@ -20,29 +20,42 @@ const TransferMoney: React.FC<TransferMoneyProps> = ({ accounts, onTransfer }) =
   };
 
   return (
-    <div className="card mt-4">
-      <div className="card-header">
-        <h2 className="d-flex align-items-center"><ArrowRightCircleFill className="me-2"/> Effectuer un virement</h2>
+    <div className="glass-form mt-4 p-4">
+      <div className="mb-4">
+        <h2 className="d-flex align-items-center text-glass" style={{ fontWeight: '600', fontSize: '1.5rem' }}>
+          <ArrowRightCircleFill className="me-2 glass-icon" size={24}/> 
+          🔄 Effectuer un virement
+        </h2>
       </div>
-      <div className="card-body">
+      <div>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="fromAccount" className="form-label">De</label>
-            <select className="form-select" id="fromAccount" value={fromAccount} onChange={(e) => setFromAccount(e.target.value)}>
+            <label htmlFor="fromAccount" className="form-label text-glass-muted">📤 De</label>
+            <select className="form-select glass-input" id="fromAccount" value={fromAccount} onChange={(e) => setFromAccount(e.target.value)}>
               {accounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="toAccount" className="form-label">À</label>
-            <select className="form-select" id="toAccount" value={toAccount} onChange={(e) => setToAccount(e.target.value)}>
+            <label htmlFor="toAccount" className="form-label text-glass-muted">📥 À</label>
+            <select className="form-select glass-input" id="toAccount" value={toAccount} onChange={(e) => setToAccount(e.target.value)}>
               {accounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="transferAmount" className="form-label">Montant</label>
-            <input type="number" className="form-control" id="transferAmount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
+            <label htmlFor="transferAmount" className="form-label text-glass-muted">💰 Montant</label>
+            <input 
+              type="number" 
+              className="form-control glass-input" 
+              id="transferAmount" 
+              value={amount} 
+              onChange={(e) => setAmount(e.target.value)} 
+              placeholder="0.00"
+              required 
+            />
           </div>
-          <button type="submit" className="btn btn-primary">Transférer</button>
+          <button type="submit" className="glass-btn-primary glass-btn px-4 py-2">
+            🚀 Transférer
+          </button>
         </form>
       </div>
     </div>

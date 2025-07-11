@@ -26,18 +26,26 @@ const iconMap: { [key: string]: React.ReactNode } = {
 const AccountList: React.FC<AccountListProps> = ({ accounts }) => {
   return (
     <div className="mb-4">
-      <h2 className="mb-3">Vue d'ensemble</h2>
+      <h2 className="mb-4 text-glass" style={{ fontWeight: '600', fontSize: '1.8rem' }}>
+        📊 Vue d'ensemble
+      </h2>
       <div className="row g-3">
         {accounts.map(account => (
           <div key={account.id} className="col-md-6 col-lg-4">
-            <div className="card h-100 shadow-sm">
+            <div className="account-card h-100 p-3">
               <div className="card-body d-flex align-items-center">
                 <div className="me-3">
-                  {iconMap[account.id] || <CashCoin size={24} />}
+                  <div className="glass-icon">
+                    {iconMap[account.id] || <CashCoin size={28} />}
+                  </div>
                 </div>
                 <div>
-                  <h5 className="card-title mb-1">{account.name}</h5>
-                  <p className="card-text fs-4 fw-bold text-success mb-0">{account.balance.toFixed(2)} €</p>
+                  <h5 className="card-title mb-1 text-glass" style={{ fontWeight: '600' }}>
+                    {account.name}
+                  </h5>
+                  <p className="card-text fs-4 fw-bold balance-amount mb-0">
+                    {account.balance.toFixed(2)} €
+                  </p>
                 </div>
               </div>
             </div>

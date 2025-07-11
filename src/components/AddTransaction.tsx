@@ -29,36 +29,49 @@ const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, o
   };
 
   return (
-    <div className="card mt-4">
-      <div className="card-header">
-        <h2 className="d-flex align-items-center"><PlusCircleFill className="me-2"/> Ajouter une transaction</h2>
+    <div className="glass-form mt-4 p-4">
+      <div className="mb-4">
+        <h2 className="d-flex align-items-center text-glass" style={{ fontWeight: '600', fontSize: '1.5rem' }}>
+          <PlusCircleFill className="me-2 glass-icon" size={24}/> 
+          ✨ Ajouter une transaction
+        </h2>
       </div>
-      <div className="card-body">
+      <div>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="amount" className="form-label">Montant</label>
-            <input type="number" className="form-control" id="amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
+            <label htmlFor="amount" className="form-label text-glass-muted">💰 Montant</label>
+            <input 
+              type="number" 
+              className="form-control glass-input" 
+              id="amount" 
+              value={amount} 
+              onChange={(e) => setAmount(e.target.value)} 
+              placeholder="0.00"
+              required 
+            />
           </div>
           <div className="mb-3">
-            <label htmlFor="account" className="form-label">Compte</label>
-            <select className="form-select" id="account" value={accountId} onChange={(e) => setAccountId(e.target.value)}>
+            <label htmlFor="account" className="form-label text-glass-muted">🏦 Compte</label>
+            <select className="form-select glass-input" id="account" value={accountId} onChange={(e) => setAccountId(e.target.value)}>
               {accounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="category" className="form-label">Catégorie</label>
-            <select className="form-select" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+            <label htmlFor="category" className="form-label text-glass-muted">🏷️ Catégorie</label>
+            <select className="form-select glass-input" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
               {sortedCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="type" className="form-label">Type</label>
-            <select className="form-select" id="type" value={type} onChange={(e) => setType(e.target.value)}>
+            <label htmlFor="type" className="form-label text-glass-muted">📊 Type</label>
+            <select className="form-select glass-input" id="type" value={type} onChange={(e) => setType(e.target.value)}>
               <option value="expense">Dépense</option>
               <option value="income">Revenu</option>
             </select>
           </div>
-          <button type="submit" className="btn btn-primary">Ajouter</button>
+          <button type="submit" className="glass-btn-primary glass-btn px-4 py-2">
+            ✨ Ajouter
+          </button>
         </form>
       </div>
     </div>

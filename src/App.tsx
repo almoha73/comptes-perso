@@ -107,13 +107,13 @@ function App() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4" style={{ minHeight: '100vh' }}>
       <Header onLoad={() => fileInputRef.current?.click()} onSave={handleFileDownload} />
       <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileUpload} accept=".json"/>
       
       <main>
         <AccountList accounts={data.accounts} />
-        <div className="row g-4">
+        <div className="row g-4 mb-5">
           <div className="col-md-6">
             <CategoryManager categories={data.categories} onUpdateCategories={handleUpdateCategories} />
             <AddTransaction accounts={data.accounts} categories={data.categories} onAddTransaction={handleAddTransaction} />

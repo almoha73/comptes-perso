@@ -29,41 +29,41 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
       <div className="mb-3">
         <button 
           type="button" 
-          className="btn btn-outline-secondary btn-sm"
+          className="glass-btn btn-sm"
           onClick={() => setShowManager(true)}
         >
-          <TagsFill className="me-2" />
-          Gérer les catégories
+          <TagsFill className="me-2 glass-icon" size={16} />
+          🏷️ Gérer les catégories
         </button>
       </div>
     );
   }
 
   return (
-    <div className="card mb-3">
-      <div className="card-header d-flex justify-content-between align-items-center">
-        <h6 className="mb-0">
-          <TagsFill className="me-2" />
+    <div className="glass-form mb-3 p-4">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h6 className="mb-0 text-glass" style={{ fontWeight: '600' }}>
+          <TagsFill className="me-2 glass-icon" size={18} />
           Gestion des catégories
         </h6>
         <button 
           type="button" 
-          className="btn-close" 
+          className="btn-close btn-close-white" 
           onClick={() => setShowManager(false)}
         ></button>
       </div>
-      <div className="card-body">
+      <div>
         <form onSubmit={handleAddCategory} className="mb-3">
           <div className="input-group">
             <input
               type="text"
-              className="form-control"
+              className="form-control glass-input"
               placeholder="Nouvelle catégorie"
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
             />
-            <button type="submit" className="btn btn-primary">
-              <PlusCircle className="me-1" />
+            <button type="submit" className="glass-btn-primary glass-btn">
+              <PlusCircle className="me-1 glass-icon" size={16} />
               Ajouter
             </button>
           </div>
@@ -72,11 +72,11 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
         <div className="row g-2">
           {categories.map(category => (
             <div key={category} className="col-auto">
-              <div className="badge bg-light text-dark d-flex align-items-center">
+              <div className="glass-badge d-flex align-items-center px-3 py-2">
                 <span className="me-2">{category}</span>
                 <button
                   type="button"
-                  className="btn-close btn-close-sm"
+                  className="btn-close btn-close-white"
                   style={{ fontSize: '0.6em' }}
                   onClick={() => handleDeleteCategory(category)}
                   title={`Supprimer ${category}`}
