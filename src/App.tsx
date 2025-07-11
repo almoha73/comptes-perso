@@ -5,6 +5,7 @@ import Header from './components/Header';
 import AccountList from './components/AccountList';
 import AddTransaction from './components/AddTransaction';
 import TransferMoney from './components/TransferMoney';
+import CategoryManager from './components/CategoryManager';
 import initialData from './data.json';
 
 function App() {
@@ -98,6 +99,13 @@ function App() {
     console.log('Transfer made, isDirty set to true.');
   };
 
+  const handleUpdateCategories = (newCategories: string[]) => {
+    const updatedData = { ...data, categories: newCategories };
+    setData(updatedData);
+    setIsDirty(true);
+    console.log('Categories updated, isDirty set to true.');
+  };
+
   return (
     <div className="container mt-4">
       <Header onLoad={() => fileInputRef.current?.click()} onSave={handleFileDownload} />
@@ -107,6 +115,7 @@ function App() {
         <AccountList accounts={data.accounts} />
         <div className="row g-4">
           <div className="col-md-6">
+            <CategoryManager categories={data.categories} onUpdateCategories={handleUpdateCategories} />
             <AddTransaction accounts={data.accounts} categories={data.categories} onAddTransaction={handleAddTransaction} />
           </div>
           <div className="col-md-6">
