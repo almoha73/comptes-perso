@@ -26,16 +26,16 @@ const iconMap: { [key: string]: React.ReactNode } = {
 const AccountList: React.FC<AccountListProps> = ({ accounts }) => {
   return (
     <section className="mb-4">
-      <h2 className="mb-4 elegant-section-title">
+      <h2 className="mb-4 glass-section-title">
         📊 Vue d'ensemble
       </h2>
       <div className="row g-3">
         {accounts.map(account => (
           <div key={account.id} className="col-md-6 col-lg-4 fade-in-up">
-            <div className="elegant-card h-100 p-3">
+            <div className="glass-card h-100 p-3">
               <div className="d-flex align-items-center">
                 <div className="me-3">
-                  <div className="elegant-icon">
+                  <div className="glass-icon">
                     {iconMap[account.id] || <CashCoin size={24} />}
                   </div>
                 </div>
@@ -43,7 +43,7 @@ const AccountList: React.FC<AccountListProps> = ({ accounts }) => {
                   <h5 className="mb-1 text-white" style={{ fontWeight: '600' }}>
                     {account.name}
                   </h5>
-                  <p className="elegant-balance mb-0">
+                  <p className="glass-balance mb-0">
                     {account.balance.toFixed(2)} €
                   </p>
                 </div>

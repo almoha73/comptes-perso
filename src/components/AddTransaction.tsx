@@ -30,7 +30,7 @@ const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, o
   };
 
   return (
-    <div className="elegant-form mt-4 p-4">
+    <div className="glass-form mt-4 p-4">
       <div className="mb-4">
         <h2 className="d-flex align-items-center text-white" style={{ fontWeight: '600', fontSize: '1.25rem' }}>
           <PlusCircleFill className="me-2" size={24}/> 
@@ -40,10 +40,10 @@ const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, o
       <div>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="amount" className="form-label elegant-label">Montant</label>
+            <label htmlFor="amount" className="form-label glass-label">Montant</label>
             <input 
               type="number" 
-              className="form-control elegant-input" 
+              className="form-control glass-input" 
               id="amount" 
               value={amount} 
               onChange={(e) => setAmount(e.target.value)} 
@@ -52,25 +52,25 @@ const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, o
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="account" className="form-label elegant-label">Compte</label>
-            <select className="form-select elegant-input" id="account" value={accountId} onChange={(e) => setAccountId(e.target.value)}>
+            <label htmlFor="account" className="form-label glass-label">Compte</label>
+            <select className="form-select glass-input" id="account" value={accountId} onChange={(e) => setAccountId(e.target.value)}>
               {sortedAccounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="category" className="form-label elegant-label">Catégorie</label>
-            <select className="form-select elegant-input" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+            <label htmlFor="category" className="form-label glass-label">Catégorie</label>
+            <select className="form-select glass-input" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
               {sortedCategories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="type" className="form-label elegant-label">Type</label>
-            <select className="form-select elegant-input" id="type" value={type} onChange={(e) => setType(e.target.value)}>
+            <label htmlFor="type" className="form-label glass-label">Type</label>
+            <select className="form-select glass-input" id="type" value={type} onChange={(e) => setType(e.target.value)}>
               <option value="expense">Dépense</option>
               <option value="income">Revenu</option>
             </select>
           </div>
-          <button type="submit" className="elegant-btn elegant-btn-success px-4 py-2">
+          <button type="submit" className="glass-btn glass-btn-success px-4 py-2">
             Ajouter
           </button>
         </form>

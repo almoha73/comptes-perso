@@ -1,308 +1,286 @@
-/* Thème Sombre et Élégant - Design Premium */
+/* Glassmorphism Theme - Modern & Elegant */
 
-/* Variables CSS pour le thème sombre */
-:root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
-  --bg-card: #1e1e1e;
-  --bg-card-hover: #252525;
-  --bg-input: #2a2a2a;
-  --bg-button: #333333;
-  
-  --text-primary: #ffffff;
-  --text-secondary: #b0b0b0;
-  --text-muted: #808080;
-  
-  --accent-primary: #3b82f6;
-  --accent-secondary: #8b5cf6;
-  --accent-success: #10b981;
-  --accent-warning: #f59e0b;
-  --accent-danger: #ef4444;
-  --accent-info: #06b6d4;
-  
-  --border-color: #333333;
-  --border-hover: #404040;
-  
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
-  
-  --border-radius: 12px;
-  --border-radius-lg: 16px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Arrière-plan principal */
 body {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   background-attachment: fixed;
   min-height: 100vh;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--text-primary);
-  line-height: 1.6;
+  color: white;
+  overflow-x: hidden;
 }
 
-/* Container principal */
+/* Animated background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+  animation: backgroundShift 20s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Container with glassmorphism */
 .container {
-  background: rgba(30, 30, 30, 0.8);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   margin-top: 2rem;
+  padding: 2rem;
 }
 
-/* Header élégant */
-.elegant-header {
-  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-md);
-  color: var(--text-primary);
+/* Glass card styling */
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  transition: var(--transition);
 }
 
-.elegant-header::before {
+.glass-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-info));
-  background-size: 200% 100%;
-  animation: borderGlow 3s ease-in-out infinite;
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+  background-size: 300% 100%;
+  animation: shimmer 3s ease-in-out infinite;
 }
 
-@keyframes borderGlow {
+@keyframes shimmer {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
 
-.elegant-header:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--border-hover);
+.glass-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
-/* Titre élégant */
-.elegant-title {
-  font-weight: 700;
-  font-size: 2rem;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Cartes de comptes élégantes */
-.elegant-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+/* Header styling */
+.glass-header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
 }
 
-.elegant-card::before {
+.glass-header::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--accent-primary);
-  transition: var(--transition);
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff6b6b);
+  background-size: 200% 100%;
+  animation: borderFlow 4s linear infinite;
 }
 
-.elegant-card:nth-child(1)::before { background: var(--accent-primary); }
-.elegant-card:nth-child(2)::before { background: var(--accent-secondary); }
-.elegant-card:nth-child(3)::before { background: var(--accent-success); }
-.elegant-card:nth-child(4)::before { background: var(--accent-warning); }
-.elegant-card:nth-child(5)::before { background: var(--accent-info); }
-.elegant-card:nth-child(6)::before { background: var(--accent-danger); }
-.elegant-card:nth-child(7)::before { background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary)); }
-.elegant-card:nth-child(8)::before { background: linear-gradient(45deg, var(--accent-success), var(--accent-info)); }
-.elegant-card:nth-child(9)::before { background: linear-gradient(45deg, var(--accent-warning), var(--accent-danger)); }
-
-.elegant-card:hover {
-  background: var(--bg-card-hover);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-hover);
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
-.elegant-card:hover::before {
-  height: 4px;
-  box-shadow: 0 0 10px currentColor;
+.glass-title {
+  font-weight: 700;
+  font-size: 2rem;
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Icônes élégantes */
-.elegant-icon {
-  background: var(--bg-button);
-  border: 1px solid var(--border-color);
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent-primary);
-  transition: var(--transition);
-}
-
-.elegant-icon:hover {
-  background: var(--accent-primary);
-  color: white;
-  transform: scale(1.1);
-  box-shadow: var(--shadow-glow);
-}
-
-/* Montants élégants */
-.elegant-balance {
-  font-weight: 600;
-  font-size: 1.25rem;
-  color: var(--text-primary);
-  transition: var(--transition);
-}
-
-.elegant-card:hover .elegant-balance {
-  color: var(--accent-primary);
-  transform: scale(1.05);
-}
-
-/* Formulaires élégants */
-.elegant-form {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-sm);
+/* Form styling */
+.glass-form {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   position: relative;
-  transition: var(--transition);
+  overflow: hidden;
 }
 
-.elegant-form::before {
+.glass-form::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  background: linear-gradient(90deg, #4ecdc4, #45b7d1);
+  border-radius: 16px 16px 0 0;
 }
 
-.elegant-form:hover {
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-md);
-}
-
-/* Inputs élégants */
-.elegant-input {
-  background: var(--bg-input) !important;
-  border: 1px solid var(--border-color) !important;
-  border-radius: var(--border-radius) !important;
-  color: var(--text-primary) !important;
+/* Input styling */
+.glass-input {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 12px !important;
+  color: white !important;
   font-weight: 500 !important;
-  transition: var(--transition) !important;
+  transition: all 0.3s ease !important;
 }
 
-.elegant-input:focus {
-  background: var(--bg-card) !important;
-  border-color: var(--accent-primary) !important;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
-  color: var(--text-primary) !important;
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
 }
 
-.elegant-input::placeholder {
-  color: var(--text-muted) !important;
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.elegant-input option {
-  background: var(--bg-input) !important;
-  color: var(--text-primary) !important;
-  border: none !important;
+/* Fix dropdown options visibility */
+.glass-input option {
+  background: #2c3e50 !important;
+  color: white !important;
+  padding: 8px !important;
 }
 
-/* Boutons élégants */
-.elegant-btn {
-  background: var(--bg-button);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  color: var(--text-primary);
+.glass-input option:hover {
+  background: #34495e !important;
+}
+
+/* Button styling */
+.glass-btn {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: white;
   font-weight: 600;
   padding: 12px 24px;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
-.elegant-btn::before {
+.glass-btn::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.5s ease;
 }
 
-.elegant-btn:hover::before {
+.glass-btn:hover::before {
   left: 100%;
 }
 
-.elegant-btn:hover {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: white;
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-glow);
-}
-
-.elegant-btn-secondary {
-  background: var(--accent-secondary);
-  border-color: var(--accent-secondary);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   color: white;
 }
 
-.elegant-btn-secondary:hover {
-  background: var(--accent-secondary);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+.glass-btn-primary {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
 }
 
-.elegant-btn-success {
-  background: var(--accent-success);
-  border-color: var(--accent-success);
+.glass-btn-primary:hover {
+  background: rgba(59, 130, 246, 0.5);
   color: white;
 }
 
-.elegant-btn-success:hover {
-  background: var(--accent-success);
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+.glass-btn-success {
+  background: rgba(16, 185, 129, 0.3);
+  border-color: rgba(16, 185, 129, 0.5);
 }
 
-.elegant-btn-warning {
-  background: var(--accent-warning);
-  border-color: var(--accent-warning);
+.glass-btn-success:hover {
+  background: rgba(16, 185, 129, 0.5);
   color: white;
 }
 
-.elegant-btn-warning:hover {
-  background: var(--accent-warning);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+.glass-btn-warning {
+  background: rgba(245, 158, 11, 0.3);
+  border-color: rgba(245, 158, 11, 0.5);
 }
 
-/* Labels élégants */
-.elegant-label {
-  color: var(--text-secondary);
+.glass-btn-warning:hover {
+  background: rgba(245, 158, 11, 0.5);
+  color: white;
+}
+
+/* Icon styling */
+.glass-icon {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.glass-icon:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Balance styling */
+.glass-balance {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover .glass-balance {
+  transform: scale(1.05);
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Label styling */
+.glass-label {
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
   font-size: 0.875rem;
   text-transform: uppercase;
@@ -310,51 +288,37 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* Titres de section */
-.elegant-section-title {
-  color: var(--text-primary);
+/* Section title */
+.glass-section-title {
+  color: white;
   font-weight: 700;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  position: relative;
-  padding-left: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.elegant-section-title::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 24px;
-  background: var(--accent-primary);
-  border-radius: 2px;
-}
-
-/* Badges élégants */
-.elegant-badge {
-  background: var(--bg-button);
-  border: 1px solid var(--border-color);
+/* Badge styling */
+.glass-badge {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
-  color: var(--text-primary);
+  color: white;
   font-weight: 500;
   font-size: 0.875rem;
   padding: 6px 12px;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
-.elegant-badge:hover {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: white;
+.glass-badge:hover {
+  background: rgba(255, 255, 255, 0.3);
   transform: scale(1.05);
 }
 
-/* Animations d'entrée */
+/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -387,49 +351,48 @@ body {
     padding: 1rem;
   }
   
-  .elegant-title {
+  .glass-title {
     font-size: 1.5rem;
   }
   
-  .elegant-balance {
+  .glass-balance {
     font-size: 1.1rem;
   }
 }
 
-/* Scrollbar élégante */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-button);
+  background: rgba(255, 255, 255, 0.3);
   border-radius: 4px;
-  border: 1px solid var(--border-color);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-primary);
+  background: rgba(255, 255, 255, 0.5);
 }
 
-/* Effets de focus pour l'accessibilité */
-.elegant-btn:focus,
-.elegant-input:focus {
-  outline: 2px solid var(--accent-primary);
+/* Focus states for accessibility */
+.glass-btn:focus,
+.glass-input:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
   outline-offset: 2px;
 }
 
-/* États de chargement */
+/* Loading states */
 .loading {
   opacity: 0.7;
   pointer-events: none;
 }
 
-/* Transitions fluides pour tous les éléments interactifs */
-button, input, select, .elegant-card, .elegant-form {
-  transition: var(--transition);
+/* Smooth transitions */
+button, input, select, .glass-card, .glass-form {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
