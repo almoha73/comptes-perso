@@ -1,0 +1,26 @@
+{
+  "accounts": [
+    { "id": "CCP", "name": "Compte Courant Postal", "balance": 1500.00 },
+    { "id": "JOINT", "name": "Compte Joint", "balance": 3250.50 },
+    { "id": "LA", "name": "Livret A", "balance": 5600.75 },
+    { "id": "LDD", "name": "Livret Développement Durable", "balance": 12000.00 },
+    { "id": "CEL", "name": "Compte Épargne Logement", "balance": 8500.00 },
+    { "id": "PEL", "name": "Plan Épargne Logement", "balance": 25000.00 },
+    { "id": "AV", "name": "Assurance Vie", "balance": 45000.00 },
+    { "id": "REVOLUT", "name": "Revolut", "balance": 0.00 },
+    { "id": "N26", "name": "N26", "balance": 0.00 }
+  ],
+  "categories": [
+    "Alimentation",
+    "Autre",
+    "Factures",
+    "Free",
+    "Loisirs",
+    "Orange",
+    "Restaurant",
+    "Santé",
+    "Syndic",
+    "Transport"
+  ],
+  "transactions": []
+}
