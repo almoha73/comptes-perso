@@ -29,10 +29,10 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
       <div className="mb-3">
         <button 
           type="button" 
-          className="glass-btn btn-sm"
+          className="fun-btn btn-sm"
           onClick={() => setShowManager(true)}
         >
-          <TagsFill className="me-2 glass-icon" size={16} />
+          <TagsFill className="me-2 fun-icon" size={16} />
           🏷️ Gérer les catégories
         </button>
       </div>
@@ -40,10 +40,10 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
   }
 
   return (
-    <div className="glass-form mb-3 p-4">
+    <div className="fun-form mb-3 p-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h6 className="mb-0 text-glass" style={{ fontWeight: '600' }}>
-          <TagsFill className="me-2 glass-icon" size={18} />
+        <h6 className="mb-0 fun-text" style={{ fontWeight: '700' }}>
+          <TagsFill className="me-2 fun-icon" size={18} />
           Gestion des catégories
         </h6>
         <button 
@@ -57,13 +57,13 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
           <div className="input-group">
             <input
               type="text"
-              className="form-control glass-input"
+              className="form-control fun-input"
               placeholder="Nouvelle catégorie"
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
             />
-            <button type="submit" className="glass-btn-primary glass-btn">
-              <PlusCircle className="me-1 glass-icon" size={16} />
+            <button type="submit" className="fun-btn-primary fun-btn">
+              <PlusCircle className="me-1 fun-icon" size={16} />
               Ajouter
             </button>
           </div>
@@ -72,7 +72,7 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
         <div className="row g-2">
           {categories.map(category => (
             <div key={category} className="col-auto">
-              <div className="glass-badge d-flex align-items-center px-3 py-2">
+              <div className="fun-badge d-flex align-items-center px-3 py-2">
                 <span className="me-2">{category}</span>
                 <button
                   type="button"

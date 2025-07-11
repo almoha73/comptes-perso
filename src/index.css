@@ -1,220 +1,353 @@
-/* Glassmorphism Design */
+/* Design Ludique et Animé */
 body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(-45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   min-height: 100vh;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+  overflow-x: hidden;
 }
 
-/* Glassmorphism card effect */
-.glass-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  transition: all 0.3s ease;
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.glass-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px 0 rgba(31, 38, 135, 0.5);
-}
-
-/* Header glassmorphism */
-.glass-header {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+/* Cartes ludiques avec animations */
+.fun-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+  border: 3px solid transparent;
   border-radius: 25px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
-
-/* Account cards with gradient backgrounds */
-.account-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  transition: all 0.3s ease;
-  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
+  overflow: hidden;
 }
 
-.account-card::before {
+.fun-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+  border-radius: 25px;
+  z-index: -1;
+  animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.fun-card:hover {
+  transform: translateY(-15px) rotate(2deg) scale(1.05);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* Header ludique */
+.fun-header {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
+  border: 3px solid #ff6b6b;
+  border-radius: 30px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.fun-header::before {
+  content: '✨💰✨';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 2rem;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { transform: rotate(0deg) scale(1); opacity: 0.7; }
+  50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+}
+
+/* Cartes de comptes avec animations individuelles */
+.account-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+  border: 3px solid;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.account-card:nth-child(1) { border-color: #ff6b6b; animation: bounce 2s ease-in-out infinite; }
+.account-card:nth-child(2) { border-color: #4ecdc4; animation: bounce 2s ease-in-out infinite 0.2s; }
+.account-card:nth-child(3) { border-color: #45b7d1; animation: bounce 2s ease-in-out infinite 0.4s; }
+.account-card:nth-child(4) { border-color: #96ceb4; animation: bounce 2s ease-in-out infinite 0.6s; }
+.account-card:nth-child(5) { border-color: #feca57; animation: bounce 2s ease-in-out infinite 0.8s; }
+.account-card:nth-child(6) { border-color: #ff9ff3; animation: bounce 2s ease-in-out infinite 1s; }
+.account-card:nth-child(7) { border-color: #54a0ff; animation: bounce 2s ease-in-out infinite 1.2s; }
+.account-card:nth-child(8) { border-color: #5f27cd; animation: bounce 2s ease-in-out infinite 1.4s; }
+.account-card:nth-child(9) { border-color: #00d2d3; animation: bounce 2s ease-in-out infinite 1.6s; }
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+.account-card:hover {
+  transform: translateY(-20px) rotate(-3deg) scale(1.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: none;
+}
+
+.account-card::after {
+  content: '💫';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.account-card:hover::after {
+  opacity: 1;
+  transform: rotate(360deg);
+}
+
+/* Formulaires ludiques */
+.fun-form {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+  border: 3px dashed #ff6b6b;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.fun-form::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
-  background-size: 200% 100%;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   animation: shimmer 3s ease-in-out infinite;
 }
 
 @keyframes shimmer {
-  0%, 100% { background-position: 200% 0; }
-  50% { background-position: -200% 0; }
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
 
-.account-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 50px 0 rgba(31, 38, 135, 0.6);
+/* Inputs ludiques */
+.fun-input {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)) !important;
+  border: 2px solid #4ecdc4 !important;
+  border-radius: 20px !important;
+  color: #2c3e50 !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  position: relative;
 }
 
-/* Form glassmorphism */
-.glass-form {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+.fun-input:focus {
+  border-color: #ff6b6b !important;
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.5) !important;
+  transform: scale(1.02) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
 }
 
-/* Input styling */
-.glass-input {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 15px !important;
-  color: white !important;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+.fun-input::placeholder {
+  color: #7f8c8d !important;
+  font-style: italic !important;
+}
+
+.fun-input option {
+  background: white !important;
+  color: #2c3e50 !important;
+  padding: 10px !important;
+  font-weight: 600 !important;
+}
+
+/* Boutons ludiques */
+.fun-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+.fun-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.fun-btn:hover::before {
+  left: 100%;
+}
+
+.fun-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(255, 107, 107, 0.6);
+  background: linear-gradient(135deg, #ff5252, #ff6b6b);
+}
+
+.fun-btn:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+.fun-btn-primary {
+  background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+  box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
+}
+
+.fun-btn-primary:hover {
+  background: linear-gradient(135deg, #26d0ce, #3742fa);
+  box-shadow: 0 15px 30px rgba(78, 205, 196, 0.6);
+}
+
+/* Textes colorés */
+.fun-text {
+  color: #2c3e50;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fun-text-muted {
+  color: #7f8c8d;
+  font-weight: 600;
+}
+
+/* Montants avec animation */
+.balance-amount {
+  color: #2c3e50 !important;
+  font-weight: 900 !important;
+  font-size: 1.4rem !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1) !important;
   transition: all 0.3s ease !important;
 }
 
-.glass-input:focus {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3) !important;
-  color: white !important;
+.account-card:hover .balance-amount {
+  color: #ff6b6b !important;
+  transform: scale(1.1) !important;
+  text-shadow: 3px 3px 6px rgba(255, 107, 107, 0.3) !important;
 }
 
-.glass-input::placeholder {
-  color: rgba(255, 255, 255, 0.7) !important;
-}
-
-/* Fix dropdown options visibility */
-.glass-input option {
-  background: #2c3e50 !important;
-  color: white !important;
-  padding: 8px !important;
-}
-
-.glass-input option:hover {
-  background: #34495e !important;
-}
-
-/* Button styling */
-.glass-btn {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 15px;
-  color: white;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  font-weight: 600;
-}
-
-.glass-btn:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15));
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  color: white;
-}
-
-.glass-btn-primary {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border: none;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
-
-.glass-btn-primary:hover {
-  background: linear-gradient(135deg, #5a6fd8, #6a4190);
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
-}
-
-/* Text colors */
-.text-glass {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.text-glass-muted {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* Balance styling */
-.balance-amount {
-  color: white !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  font-weight: 700;
-  font-size: 1.3rem;
-}
-
-/* Account card text improvements */
-.account-card .card-title {
-  color: white !important;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-  font-weight: 600;
-}
-
-/* Better contrast for account cards */
-.account-card .card-body {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  backdrop-filter: blur(5px);
-}
-
-/* Category badges */
-.glass-badge {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+/* Badges ludiques */
+.fun-badge {
+  background: linear-gradient(135deg, #feca57, #ff9ff3);
+  border: 2px solid white;
   border-radius: 20px;
   color: white;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  position: relative;
 }
 
-.glass-badge:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+.fun-badge:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Icon styling */
-.glass-icon {
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+/* Icônes animées */
+.fun-icon {
   transition: all 0.3s ease;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-.glass-icon:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+.fun-icon:hover {
+  transform: scale(1.2) rotate(15deg);
+  filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3));
 }
 
-/* Floating animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+/* Animation de titre */
+.fun-title {
+  animation: titleBounce 3s ease-in-out infinite;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleBounce 3s ease-in-out infinite, gradientText 5s ease infinite;
 }
 
-.floating {
-  animation: float 6s ease-in-out infinite;
+@keyframes titleBounce {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(1deg); }
+  75% { transform: translateY(-5px) rotate(-1deg); }
 }
 
-/* Responsive adjustments */
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Effets de particules */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  font-size: 1.5rem;
+  animation: float-particle 4s ease-out forwards;
+}
+
+@keyframes float-particle {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) rotate(360deg);
+  }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .glass-card, .glass-form {
-    border-radius: 15px;
+  .fun-card, .fun-form {
+    border-radius: 20px;
+    margin-bottom: 1rem;
   }
   
   .account-card {
     border-radius: 15px;
   }
+  
+  .fun-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Animation de chargement */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
 }
