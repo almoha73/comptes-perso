@@ -9,8 +9,9 @@ interface TransferMoneyProps {
 }
 
 const TransferMoney: React.FC<TransferMoneyProps> = ({ accounts, onTransfer }) => {
-  const [fromAccount, setFromAccount] = useState(accounts[0]?.id || '');
-  const [toAccount, setToAccount] = useState(accounts[1]?.id || '');
+  const sortedAccounts = [...accounts].sort((a, b) => a.name.localeCompare(b.name));
+  const [fromAccount, setFromAccount] = useState(sortedAccounts[0]?.id || '');
+  const [toAccount, setToAccount] = useState(sortedAccounts[1]?.id || '');
   const [amount, setAmount] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,13 +33,13 @@ const TransferMoney: React.FC<TransferMoneyProps> = ({ accounts, onTransfer }) =
           <div className="mb-3">
             <label htmlFor="fromAccount" className="form-label text-glass-muted">📤 De</label>
             <select className="form-select glass-input" id="fromAccount" value={fromAccount} onChange={(e) => setFromAccount(e.target.value)}>
-              {accounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
+              {sortedAccounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
             </select>
           </div>
           <div className="mb-3">
             <label htmlFor="toAccount" className="form-label text-glass-muted">📥 À</label>
             <select className="form-select glass-input" id="toAccount" value={toAccount} onChange={(e) => setToAccount(e.target.value)}>
-              {accounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
+              {sortedAccounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
             </select>
           </div>
           <div className="mb-3">

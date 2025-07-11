@@ -11,8 +11,9 @@ interface AddTransactionProps {
 
 const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, onAddTransaction }) => {
   const sortedCategories = [...categories].sort();
+  const sortedAccounts = [...accounts].sort((a, b) => a.name.localeCompare(b.name));
   const [amount, setAmount] = useState('');
-  const [accountId, setAccountId] = useState(accounts[0]?.id || '');
+  const [accountId, setAccountId] = useState(sortedAccounts[0]?.id || '');
   const [category, setCategory] = useState(categories[0] || '');
   const [type, setType] = useState('expense');
 
@@ -53,7 +54,7 @@ const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, o
           <div className="mb-3">
             <label htmlFor="account" className="form-label text-glass-muted">🏦 Compte</label>
             <select className="form-select glass-input" id="account" value={accountId} onChange={(e) => setAccountId(e.target.value)}>
-              {accounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
+              {sortedAccounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
             </select>
           </div>
           <div className="mb-3">
