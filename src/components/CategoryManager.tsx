@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TagsFill, PlusCircle, Trash } from 'react-bootstrap-icons';
+import { Button, TextField, Chip, Paper, Typography, IconButton, Box } from '@mui/material';
+import { Category, AddCircle, Delete, Close } from '@mui/icons-material';
 
 interface CategoryManagerProps {
   categories: string[];
@@ -26,67 +27,53 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
 
   if (!showManager) {
     return (
-      <div className="mb-3">
-        <button 
-          type="button" 
-          className="glass-btn btn-sm"
+      <Box mb={3}>
+        <Button 
+          variant="outlined" 
+          startIcon={<Category />}
           onClick={() => setShowManager(true)}
         >
-          <TagsFill className="me-2" size={16} />
           Gérer les catégories
-        </button>
-      </div>
+        </Button>
+      </Box>
     );
   }
 
   return (
-    <div className="glass-form mb-3 p-4">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h6 className="mb-0 text-white" style={{ fontWeight: '600' }}>
-          <TagsFill className="me-2" size={18} />
+    <Paper elevation={3} sx={{ mb: 3, p: 2 }}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+        <Typography variant="h6" component="div" sx={{ display: 'flex', alignItems: 'center' }}>
+          <Category sx={{ mr: 1 }} />
           Gestion des catégories
-        </h6>
-        <button 
-          type="button" 
-          className="btn-close btn-close-white" 
-          onClick={() => setShowManager(false)}
-        ></button>
-      </div>
-      <div>
-        <form onSubmit={handleAddCategory} className="mb-3">
-          <div className="input-group">
-            <input
-              type="text"
-              className="form-control glass-input"
-              placeholder="Nouvelle catégorie"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-            />
-            <button type="submit" className="glass-btn glass-btn-success">
-              <PlusCircle className="me-1" size={16} />
-              Ajouter
-            </button>
-          </div>
-        </form>
-        
-        <div className="row g-2">
-          {categories.map(category => (
-            <div key={category} className="col-auto">
-              <div className="glass-badge">
-                <span className="me-2">{category}</span>
-                <button
-                  type="button"
-                  className="btn-close btn-close-white"
-                  style={{ fontSize: '0.6em' }}
-                  onClick={() => handleDeleteCategory(category)}
-                  title={`Supprimer ${category}`}
-                ></button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+        </Typography>
+        <IconButton onClick={() => setShowManager(false)}>
+          <Close />
+        </IconButton>
+      </Box>
+      <Box component="form" onSubmit={handleAddCategory} mb={2} display="flex" gap={1}>
+        <TextField
+          label="Nouvelle catégorie"
+          variant="outlined"
+          size="small"
+          value={newCategory}
+          onChange={(e) => setNewCategory(e.target.value)}
+          fullWidth
+        />
+        <Button type="submit" variant="contained" startIcon={<AddCircle />}>
+          Ajouter
+        </Button>
+      </Box>
+      <Box display="flex" flexWrap="wrap" gap={1}>
+        {categories.map(category => (
+          <Chip
+            key={category}
+            label={category}
+            onDelete={() => handleDeleteCategory(category)}
+            deleteIcon={<Delete />}
+          />
+        ))}
+      </Box>
+    </Paper>
   );
 };
 

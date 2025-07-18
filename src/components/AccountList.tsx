@@ -1,5 +1,6 @@
 import React from 'react';
-import { Bank, PiggyBank, House, Briefcase, Heart, Wallet, CashCoin } from 'react-bootstrap-icons';
+import { Grid, Card, CardContent, Typography, Avatar, Box } from '@mui/material';
+import { AccountBalance, AccountBalanceWallet, Savings, Home, Work, MonetizationOn } from '@mui/icons-material';
 
 interface Account {
   id: string;
@@ -12,47 +13,49 @@ interface AccountListProps {
 }
 
 const iconMap: { [key: string]: React.ReactNode } = {
-  CCP: <Bank size={24} className="text-primary" />,
-  JOINT: <Wallet size={24} className="text-info" />,
-  LA: <PiggyBank size={24} className="text-success" />,
-  LDD: <PiggyBank size={24} className="text-warning" />,
-  CEL: <House size={24} className="text-danger" />,
-  PEL: <House size={24} className="text-danger" />,
-  AV: <Briefcase size={24} className="text-dark" />,
-  REVOLUT: <CashCoin size={24} className="text-success" />,
-  N26: <Bank size={24} className="text-secondary" />,
+  CCP: <AccountBalance />,
+  JOINT: <AccountBalanceWallet />,
+  LA: <Savings />,
+  LDD: <Savings />,
+  CEL: <Home />,
+  PEL: <Home />,
+  AV: <Work />,
+  REVOLUT: <MonetizationOn />,
+  N26: <AccountBalance />,
 };
 
 const AccountList: React.FC<AccountListProps> = ({ accounts }) => {
   return (
-    <section className="mb-4">
-      <h2 className="mb-4 glass-section-title">
-        📊 Vue d'ensemble
-      </h2>
-      <div className="row g-3">
+    <Box sx={{ mb: 4 }}>
+      <Typography variant="h4" component="h2" gutterBottom>
+        Vue d'ensemble
+      </Typography>
+      <Grid container spacing={3}>
         {accounts.map(account => (
-          <div key={account.id} className="col-md-6 col-lg-4 fade-in-up">
-            <div className="glass-card h-100 p-3">
-              <div className="d-flex align-items-center">
-                <div className="me-3">
-                  <div className="glass-icon">
-                    {iconMap[account.id] || <CashCoin size={24} />}
-                  </div>
-                </div>
-                <div>
-                  <h5 className="mb-1 text-white" style={{ fontWeight: '600' }}>
-                    {account.name}
-                  </h5>
-                  <p className="glass-balance mb-0">
-                    {account.balance.toFixed(2)} €
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Grid component="div" xs={12} sm={6} md={4} key={account.id}>
+            <Card>
+              <CardContent>
+                <Grid container spacing={2} alignItems="center">
+                  <Grid component="div">
+                    <Avatar>
+                      {iconMap[account.id] || <MonetizationOn />}
+                    </Avatar>
+                  </Grid>
+                  <Grid component="div">
+                    <Typography variant="h6" component="div">
+                      {account.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {account.balance.toFixed(2)} €
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
         ))}
-      </div>
-    </section>
+      </Grid>
+    </Box>
   );
 };
 

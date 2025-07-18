@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Box, Typography, AppBar, Toolbar, Grid } from '@mui/material';
 import Header from './components/Header';
 import AccountList from './components/AccountList';
 import AddTransaction from './components/AddTransaction';
 import TransferMoney from './components/TransferMoney';
 import CategoryManager from './components/CategoryManager';
 import initialData from './data.json';
+import type { Transaction } from './types';
 
 function App() {
   const [data, setData] = useState(initialData);
@@ -68,7 +69,7 @@ function App() {
     console.log('Data saved, isDirty set to false.');
   };
 
-  const handleAddTransaction = (transaction: any) => {
+  const handleAddTransaction = (transaction: Transaction) => {
     const updatedData = { ...data };
     const account = updatedData.accounts.find(acc => acc.id === transaction.accountId);
     if (account) {
@@ -107,23 +108,30 @@ function App() {
   };
 
   return (
-    <div className="container mt-4" style={{ minHeight: '100vh' }}>
-      <Header onLoad={() => fileInputRef.current?.click()} onSave={handleFileDownload} />
-      <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileUpload} accept=".json"/>
-      
-      <main>
-        <AccountList accounts={data.accounts} />
-        <div className="row g-4 mb-5">
-          <div className="col-md-6">
-            <CategoryManager categories={data.categories} onUpdateCategories={handleUpdateCategories} />
-            <AddTransaction accounts={data.accounts} categories={data.categories} onAddTransaction={handleAddTransaction} />
-          </div>
-          <div className="col-md-6">
-            <TransferMoney accounts={data.accounts} onTransfer={handleTransfer} />
-          </div>
-        </div>
-      </main>
-    </div>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          
+          <Header onLoad={() => fileInputRef.current?.click()} onSave={handleFileDownload} />
+        </Toolbar>
+      </AppBar>
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileUpload} accept=".json"/>
+        
+        <main>
+          <AccountList accounts={data.accounts} />
+          <Grid container spacing={3} sx={{ mt: 4 }}>
+            <Grid component="div" xs={12} md={6}>
+              <CategoryManager categories={data.categories} onUpdateCategories={handleUpdateCategories} />
+              <AddTransaction accounts={data.accounts} categories={data.categories} onAddTransaction={handleAddTransaction} />
+            </Grid>
+            <Grid component="div" xs={12} md={6}>
+              <TransferMoney accounts={data.accounts} onTransfer={handleTransfer} />
+            </Grid>
+          </Grid>
+        </main>
+      </Container>
+    </Box>
   );
 }
 

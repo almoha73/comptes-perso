@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Upload, Download } from 'react-bootstrap-icons';
+import { Button, Box, Typography } from '@mui/material';
+import { Upload, Download } from '@mui/icons-material';
 
 interface HeaderProps {
   onLoad: () => void;
@@ -9,21 +10,36 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onLoad, onSave }) => {
   return (
-    <header className="glass-header d-flex justify-content-between align-items-center mb-4 p-4">
-      <h1 className="mb-0 glass-title">
-        💰 Mes Comptes Perso
-      </h1>
-      <div>
-        <button className="glass-btn me-3" onClick={onLoad}>
-          <Upload className="me-2" size={18}/>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', sm: 'row' }, // Column on extra-small, row on small and up
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        padding: 2,
+      }}
+    >
+      <Typography variant="h6" component="div" sx={{ mb: { xs: 2, sm: 0 } }}>
+        Gestion de Comptes Personnels
+      </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row', // Always row for buttons
+          gap: { xs: 1, sm: 2 }, // Gap between buttons
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Button variant="contained" onClick={onLoad} startIcon={<Upload />}>
           Charger
-        </button>
-        <button className="glass-btn glass-btn-primary" onClick={onSave}>
-          <Download className="me-2" size={18}/>
+        </Button>
+        <Button variant="contained" color="primary" onClick={onSave} startIcon={<Download />}>
           Sauvegarder
-        </button>
-      </div>
-    </header>
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
