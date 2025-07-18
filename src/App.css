@@ -55,6 +55,20 @@
   }
 }
 
+.transaction-transfer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .transaction-transfer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Optimisations pour très petits écrans */
 @media (max-width: 375px) {
   .main-container {

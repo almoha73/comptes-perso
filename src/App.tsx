@@ -353,14 +353,12 @@ Exemple :
       <main>
         <AccountList accounts={data.accounts} onDeleteAccount={handleDeleteAccount} onAddAccount={handleAddAccount} />
         
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16, marginBottom: 32 }}>
-          <div>
-            <CategoryManager categories={data.categories} onUpdateCategories={handleUpdateCategories} />
-            <AddTransaction accounts={data.accounts} categories={data.categories} onAddTransaction={handleAddTransaction} />
-          </div>
-          <div>
-            <TransferMoney accounts={data.accounts} onTransfer={handleTransfer} />
-          </div>
+        <div style={{ marginBottom: 16 }}>
+          <CategoryManager categories={data.categories} onUpdateCategories={handleUpdateCategories} />
+        </div>
+        <div className="transaction-transfer-grid">
+          <AddTransaction accounts={data.accounts} categories={data.categories} onAddTransaction={handleAddTransaction} />
+          <TransferMoney accounts={data.accounts} onTransfer={handleTransfer} />
         </div>
         
         <AdvancedTransactionHistory 

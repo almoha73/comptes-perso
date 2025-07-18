@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Typography, Box, Paper, Grid } from '@mui/material';
+import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Typography, Box, Card, CardContent, Grid } from '@mui/material';
 import { ArrowForward } from '@mui/icons-material';
 
 interface TransferMoneyProps {
@@ -21,60 +21,62 @@ const TransferMoney: React.FC<TransferMoneyProps> = ({ accounts, onTransfer }) =
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 3, mt: 4 }}>
-      <Typography variant="h5" component="h2" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
-        <ArrowForward sx={{ mr: 1 }} />
-        Effectuer un virement
-      </Typography>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
-        <Grid container spacing={2}>
-          <Grid size={12}>
-            <FormControl fullWidth>
-              <InputLabel id="from-account-label">De</InputLabel>
-              <Select
-                labelId="from-account-label"
-                id="fromAccount"
-                value={fromAccount}
-                onChange={(e) => setFromAccount(e.target.value)}
-                label="De"
-              >
-                {sortedAccounts.map(acc => <MenuItem key={acc.id} value={acc.id}>{acc.name}</MenuItem>)}
-              </Select>
-            </FormControl>
+    <Card sx={{ mt: 2 }}>
+      <CardContent>
+        <Typography variant="h3" component="h2" sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
+          <ArrowForward sx={{ mr: 1 }} />
+          Effectuer un virement
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+          <Grid container spacing={2}>
+            <Grid size={12}>
+              <FormControl fullWidth>
+                <InputLabel id="from-account-label">De</InputLabel>
+                <Select
+                  labelId="from-account-label"
+                  id="fromAccount"
+                  value={fromAccount}
+                  onChange={(e) => setFromAccount(e.target.value)}
+                  label="De"
+                >
+                  {sortedAccounts.map(acc => <MenuItem key={acc.id} value={acc.id}>{acc.name}</MenuItem>)}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid size={12}>
+              <FormControl fullWidth>
+                <InputLabel id="to-account-label">À</InputLabel>
+                <Select
+                  labelId="to-account-label"
+                  id="toAccount"
+                  value={toAccount}
+                  onChange={(e) => setToAccount(e.target.value)}
+                  label="À"
+                >
+                  {sortedAccounts.map(acc => <MenuItem key={acc.id} value={acc.id}>{acc.name}</MenuItem>)}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid size={12}>
+              <TextField
+                label="Montant"
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="0.00"
+                required
+                fullWidth
+              />
+            </Grid>
+            <Grid size={12}>
+              <Button type="submit" variant="contained" color="secondary" fullWidth>
+                Transférer
+              </Button>
+            </Grid>
           </Grid>
-          <Grid size={12}>
-            <FormControl fullWidth>
-              <InputLabel id="to-account-label">À</InputLabel>
-              <Select
-                labelId="to-account-label"
-                id="toAccount"
-                value={toAccount}
-                onChange={(e) => setToAccount(e.target.value)}
-                label="À"
-              >
-                {sortedAccounts.map(acc => <MenuItem key={acc.id} value={acc.id}>{acc.name}</MenuItem>)}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid size={12}>
-            <TextField
-              label="Montant"
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="0.00"
-              required
-              fullWidth
-            />
-          </Grid>
-          <Grid size={12}>
-            <Button type="submit" variant="contained" color="secondary" fullWidth>
-              Transférer
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-    </Paper>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 
