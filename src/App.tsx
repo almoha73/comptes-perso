@@ -266,7 +266,7 @@ Exemple :
       <main>
         <AccountList accounts={data.accounts} />
         
-        <div style={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 2, marginBottom: 4 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16, marginBottom: 32 }}>
           <div>
             <CategoryManager categories={data.categories} onUpdateCategories={handleUpdateCategories} />
             <AddTransaction accounts={data.accounts} categories={data.categories} onAddTransaction={handleAddTransaction} />

@@ -7,8 +7,7 @@ import {
   Button, 
   Box, 
   Chip, 
-  IconButton,
-  Collapse
+  IconButton
 } from '@mui/material';
 import { Category, Add, Close } from '@mui/icons-material';
 

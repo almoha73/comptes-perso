@@ -12,18 +12,8 @@ import {
   IconButton,
   Box,
   Chip,
-  Collapse,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   useMediaQuery,
   useTheme,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Grid
 } from '@mui/material';
 import {
@@ -31,7 +21,6 @@ import {
   Edit,
   Delete,
   Search,
-  ExpandMore,
   NavigateBefore,
   NavigateNext,
   Receipt,
