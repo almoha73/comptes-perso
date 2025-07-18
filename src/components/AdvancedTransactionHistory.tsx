@@ -53,21 +53,34 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
   const [selectedType, setSelectedType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
+  const [showAllResults, setShowAllResults] = useState(false);
   const itemsPerPage = 10;
+  const defaultDisplayLimit = 50;
+
+  // Déterminer si des filtres sont actifs
+  const hasActiveFilters = useMemo(() => {
+    return searchTerm || selectedAccount || selectedCategory || selectedType;
+  }, [searchTerm, selectedAccount, selectedCategory, selectedType]);
 
   const filteredTransactions = useMemo(() => {
-    return transactions
-      .filter(transaction => {
-        const matchesSearch = transaction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            transaction.category.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesAccount = !selectedAccount || transaction.accountId === selectedAccount;
-        const matchesCategory = !selectedCategory || transaction.category === selectedCategory;
-        const matchesType = !selectedType || transaction.type === selectedType;
-        
-        return matchesSearch && matchesAccount && matchesCategory && matchesType;
-      })
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, [transactions, searchTerm, selectedAccount, selectedCategory, selectedType]);
+    const sorted = transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    
+    if (!hasActiveFilters) {
+      // Pas de filtres : afficher seulement les 50 dernières
+      return sorted.slice(0, defaultDisplayLimit);
+    }
+    
+    // Filtres actifs : chercher dans toutes les transactions
+    return sorted.filter(transaction => {
+      const matchesSearch = transaction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          transaction.category.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesAccount = !selectedAccount || transaction.accountId === selectedAccount;
+      const matchesCategory = !selectedCategory || transaction.category === selectedCategory;
+      const matchesType = !selectedType || transaction.type === selectedType;
+      
+      return matchesSearch && matchesAccount && matchesCategory && matchesType;
+    });
+  }, [transactions, searchTerm, selectedAccount, selectedCategory, selectedType, hasActiveFilters]);
 
   const paginatedTransactions = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -75,6 +88,13 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
   }, [filteredTransactions, currentPage]);
 
   const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
+
+  // Statistiques pour toutes les transactions (pas seulement les filtrées)
+  const allTransactionsStats = useMemo(() => {
+    const totalRevenues = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+    const totalExpenses = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+    return { totalRevenues, totalExpenses, total: transactions.length };
+  }, [transactions]);
 
   const getAccountName = (accountId: string) => {
     return accounts.find(acc => acc.id === accountId)?.name || accountId;
@@ -330,26 +350,58 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
           </Grid>
         </Grid>
 
-        {/* Statistiques rapides */}
-        <Box sx={{ mb: 3, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-          <Chip 
-            icon={<Receipt />}
-            label={`${filteredTransactions.length} transactions`}
-            color="primary"
-            variant="outlined"
-          />
-          <Chip 
-            icon={<TrendingUp />}
-            label={`+${filteredTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0).toFixed(2)} €`}
-            color="success"
-            variant="outlined"
-          />
-          <Chip 
-            icon={<TrendingDown />}
-            label={`-${filteredTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0).toFixed(2)} €`}
-            color="error"
-            variant="outlined"
-          />
+        {/* Statistiques et info d'affichage */}
+        <Box sx={{ mb: 3 }}>
+          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', mb: 2 }}>
+            <Chip 
+              icon={<Receipt />}
+              label={`${filteredTransactions.length} transactions affichées`}
+              color="primary"
+              variant="outlined"
+            />
+            <Chip 
+              icon={<TrendingUp />}
+              label={`+${filteredTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0).toFixed(2)} €`}
+              color="success"
+              variant="outlined"
+            />
+            <Chip 
+              icon={<TrendingDown />}
+              label={`-${filteredTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0).toFixed(2)} €`}
+              color="error"
+              variant="outlined"
+            />
+          </Box>
+          
+          {!hasActiveFilters && allTransactionsStats.total > defaultDisplayLimit && (
+            <Box sx={{ 
+              p: 2, 
+              bgcolor: 'info.main', 
+              color: 'info.contrastText', 
+              borderRadius: 1, 
+              mb: 2 
+            }}>
+              <Typography variant="body2">
+                📋 Affichage des {defaultDisplayLimit} dernières transactions sur {allTransactionsStats.total} au total.
+                <br />
+                💡 Utilisez les filtres ci-dessus pour rechercher dans toutes vos transactions.
+              </Typography>
+            </Box>
+          )}
+          
+          {hasActiveFilters && (
+            <Box sx={{ 
+              p: 2, 
+              bgcolor: 'success.main', 
+              color: 'success.contrastText', 
+              borderRadius: 1, 
+              mb: 2 
+            }}>
+              <Typography variant="body2">
+                🔍 Recherche active dans toutes les transactions ({allTransactionsStats.total} au total)
+              </Typography>
+            </Box>
+          )}
         </Box>
 
         {/* Liste des transactions */}
