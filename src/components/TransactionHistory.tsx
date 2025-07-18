@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PencilSquare, Trash3, Calendar, CashCoin, Receipt } from 'react-bootstrap-icons';
 import type { Transaction, Account } from '../types';
+import EditTransactionModal from './EditTransactionModal';
 
 interface TransactionHistoryProps {
   transactions: Transaction[];
@@ -17,8 +18,7 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
   onEditTransaction,
   onDeleteTransaction
 }) => {
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editForm, setEditForm] = useState<Transaction | null>(null);
+  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
   const [filterAccount, setFilterAccount] = useState<string>('all');
   const [filterType, setFilterType] = useState<string>('all');
 
@@ -39,21 +39,15 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
   };
 
   const handleEdit = (transaction: Transaction) => {
-    setEditingId(transaction.id);
-    setEditForm({ ...transaction });
+    setEditingTransaction(transaction);
   };
 
-  const handleSaveEdit = () => {
-    if (editForm) {
-      onEditTransaction(editForm);
-      setEditingId(null);
-      setEditForm(null);
-    }
+  const handleSaveEdit = (transaction: Transaction) => {
+    onEditTransaction(transaction);
   };
 
-  const handleCancelEdit = () => {
-    setEditingId(null);
-    setEditForm(null);
+  const handleCloseModal = () => {
+    setEditingTransaction(null);
   };
 
   const handleDelete = (transactionId: string) => {
@@ -139,125 +133,35 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
                   <tbody>
                 {sortedTransactions.map(transaction => (
                   <tr key={transaction.id} style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                    {editingId === transaction.id ? (
-                      // Mode édition
-                      <>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                          <input
-                            type="date"
-                            className="form-control glass-input"
-                            style={{fontSize: '0.9rem'}}
-                            value={editForm?.date || ''}
-                            onChange={(e) => setEditForm(prev => prev ? {...prev, date: e.target.value} : null)}
-                          />
-                        </td>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                          <select
-                            className="form-select glass-input"
-                            style={{fontSize: '0.9rem'}}
-                            value={editForm?.accountId || ''}
-                            onChange={(e) => setEditForm(prev => prev ? {...prev, accountId: e.target.value} : null)}
-                          >
-                            {accounts.map(account => (
-                              <option key={account.id} value={account.id}>{account.name}</option>
-                            ))}
-                          </select>
-                        </td>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                          <select
-                            className="form-select glass-input"
-                            style={{fontSize: '0.9rem'}}
-                            value={editForm?.category || ''}
-                            onChange={(e) => setEditForm(prev => prev ? {...prev, category: e.target.value} : null)}
-                          >
-                            {categories.map(category => (
-                              <option key={category} value={category}>{category}</option>
-                            ))}
-                          </select>
-                        </td>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                          <input
-                            type="text"
-                            className="form-control glass-input"
-                            style={{fontSize: '0.9rem'}}
-                            value={editForm?.description || ''}
-                            onChange={(e) => setEditForm(prev => prev ? {...prev, description: e.target.value} : null)}
-                          />
-                        </td>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                          <div className="d-flex">
-                            <select
-                              className="form-select glass-input me-1"
-                              style={{width: '80px', fontSize: '0.9rem'}}
-                              value={editForm?.type || ''}
-                              onChange={(e) => setEditForm(prev => prev ? {...prev, type: e.target.value as 'income' | 'expense'} : null)}
-                            >
-                              <option value="income">+</option>
-                              <option value="expense">-</option>
-                            </select>
-                            <input
-                              type="number"
-                              step="0.01"
-                              className="form-control glass-input"
-                              style={{fontSize: '0.9rem'}}
-                              value={editForm?.amount || 0}
-                              onChange={(e) => setEditForm(prev => prev ? {...prev, amount: parseFloat(e.target.value)} : null)}
-                            />
-                          </div>
-                        </td>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                          <div className="d-flex gap-1">
-                            <button
-                              className="glass-btn glass-btn-success"
-                              style={{padding: '6px 12px', fontSize: '0.8rem'}}
-                              onClick={handleSaveEdit}
-                            >
-                              Sauv.
-                            </button>
-                            <button
-                              className="glass-btn"
-                              style={{padding: '6px 12px', fontSize: '0.8rem'}}
-                              onClick={handleCancelEdit}
-                            >
-                              Annul.
-                            </button>
-                          </div>
-                        </td>
-                      </>
-                    ) : (
-                      // Mode affichage
-                      <>
-                        <td style={{color: 'rgba(255, 255, 255, 0.9)', borderColor: 'rgba(255, 255, 255, 0.1)'}}>{formatDate(transaction.date)}</td>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                          <small style={{color: 'rgba(255, 255, 255, 0.7)'}}>{getAccountName(transaction.accountId)}</small>
-                        </td>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                          <span className="glass-badge">{transaction.category}</span>
-                        </td>
-                        <td style={{color: 'rgba(255, 255, 255, 0.9)', borderColor: 'rgba(255, 255, 255, 0.1)'}}>{transaction.description}</td>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>{formatAmount(transaction.amount, transaction.type)}</td>
-                        <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
-                          <div className="d-flex gap-1">
-                            <button
-                              className="glass-btn glass-btn-primary"
-                              style={{padding: '6px 10px'}}
-                              onClick={() => handleEdit(transaction)}
-                              title="Modifier"
-                            >
-                              <PencilSquare size={14} />
-                            </button>
-                            <button
-                              className="glass-btn glass-btn-warning"
-                              style={{padding: '6px 10px'}}
-                              onClick={() => handleDelete(transaction.id)}
-                              title="Supprimer"
-                            >
-                              <Trash3 size={14} />
-                            </button>
-                          </div>
-                        </td>
-                      </>
-                    )}
+                    <td style={{color: 'rgba(255, 255, 255, 0.9)', borderColor: 'rgba(255, 255, 255, 0.1)'}}>{formatDate(transaction.date)}</td>
+                    <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
+                      <small style={{color: 'rgba(255, 255, 255, 0.7)'}}>{getAccountName(transaction.accountId)}</small>
+                    </td>
+                    <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
+                      <span className="glass-badge">{transaction.category}</span>
+                    </td>
+                    <td style={{color: 'rgba(255, 255, 255, 0.9)', borderColor: 'rgba(255, 255, 255, 0.1)'}}>{transaction.description}</td>
+                    <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>{formatAmount(transaction.amount, transaction.type)}</td>
+                    <td style={{borderColor: 'rgba(255, 255, 255, 0.1)'}}>
+                      <div className="d-flex gap-1">
+                        <button
+                          className="glass-btn glass-btn-primary"
+                          style={{padding: '6px 10px'}}
+                          onClick={() => handleEdit(transaction)}
+                          title="Modifier"
+                        >
+                          <PencilSquare size={14} />
+                        </button>
+                        <button
+                          className="glass-btn glass-btn-warning"
+                          style={{padding: '6px 10px'}}
+                          onClick={() => handleDelete(transaction.id)}
+                          title="Supprimer"
+                        >
+                          <Trash3 size={14} />
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -269,140 +173,60 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
         <div className="d-md-none">
           {sortedTransactions.map(transaction => (
             <div key={transaction.id} className="glass-card mb-3 fade-in-up">
-              {editingId === transaction.id ? (
-                // Mode édition mobile
-                <div className="p-3">
-                  <div className="row g-3">
-                    <div className="col-6">
-                      <label className="glass-label">Date</label>
-                      <input
-                        type="date"
-                        className="form-control glass-input"
-                        value={editForm?.date || ''}
-                        onChange={(e) => setEditForm(prev => prev ? {...prev, date: e.target.value} : null)}
-                      />
-                    </div>
-                    <div className="col-6">
-                      <label className="glass-label">Compte</label>
-                      <select
-                        className="form-select glass-input"
-                        value={editForm?.accountId || ''}
-                        onChange={(e) => setEditForm(prev => prev ? {...prev, accountId: e.target.value} : null)}
-                      >
-                        {accounts.map(account => (
-                          <option key={account.id} value={account.id}>{account.name}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="col-6">
-                      <label className="glass-label">Catégorie</label>
-                      <select
-                        className="form-select glass-input"
-                        value={editForm?.category || ''}
-                        onChange={(e) => setEditForm(prev => prev ? {...prev, category: e.target.value} : null)}
-                      >
-                        {categories.map(category => (
-                          <option key={category} value={category}>{category}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="col-6">
-                      <label className="glass-label">Type</label>
-                      <select
-                        className="form-select glass-input"
-                        value={editForm?.type || ''}
-                        onChange={(e) => setEditForm(prev => prev ? {...prev, type: e.target.value as 'income' | 'expense'} : null)}
-                      >
-                        <option value="income">Revenu</option>
-                        <option value="expense">Dépense</option>
-                      </select>
-                    </div>
-                    <div className="col-12">
-                      <label className="glass-label">Description</label>
-                      <input
-                        type="text"
-                        className="form-control glass-input"
-                        value={editForm?.description || ''}
-                        onChange={(e) => setEditForm(prev => prev ? {...prev, description: e.target.value} : null)}
-                      />
-                    </div>
-                    <div className="col-12">
-                      <label className="glass-label">Montant</label>
-                      <input
-                        type="number"
-                        step="0.01"
-                        className="form-control glass-input"
-                        value={editForm?.amount || 0}
-                        onChange={(e) => setEditForm(prev => prev ? {...prev, amount: parseFloat(e.target.value)} : null)}
-                      />
-                    </div>
-                    <div className="col-12 mt-3">
-                      <div className="d-flex gap-2">
-                        <button
-                          className="glass-btn glass-btn-success flex-fill"
-                          onClick={handleSaveEdit}
-                        >
-                          Sauvegarder
-                        </button>
-                        <button
-                          className="glass-btn flex-fill"
-                          onClick={handleCancelEdit}
-                        >
-                          Annuler
-                        </button>
-                      </div>
-                    </div>
+              <div className="p-3">
+                <div className="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <h6 className="glass-balance mb-1">{formatAmount(transaction.amount, transaction.type)}</h6>
+                    <small style={{color: 'rgba(255, 255, 255, 0.7)'}}>{formatDate(transaction.date)}</small>
+                  </div>
+                  <div className="d-flex gap-2">
+                    <button
+                      className="glass-btn glass-btn-primary"
+                      style={{padding: '8px 12px'}}
+                      onClick={() => handleEdit(transaction)}
+                      title="Modifier"
+                    >
+                      <PencilSquare size={16} />
+                    </button>
+                    <button
+                      className="glass-btn glass-btn-warning"
+                      style={{padding: '8px 12px'}}
+                      onClick={() => handleDelete(transaction.id)}
+                      title="Supprimer"
+                    >
+                      <Trash3 size={16} />
+                    </button>
                   </div>
                 </div>
-              ) : (
-                // Mode affichage mobile
-                <div className="p-3">
-                  <div className="d-flex justify-content-between align-items-start mb-3">
-                    <div>
-                      <h6 className="glass-balance mb-1">{formatAmount(transaction.amount, transaction.type)}</h6>
-                      <small style={{color: 'rgba(255, 255, 255, 0.7)'}}>{formatDate(transaction.date)}</small>
-                    </div>
-                    <div className="d-flex gap-2">
-                      <button
-                        className="glass-btn glass-btn-primary"
-                        style={{padding: '8px 12px'}}
-                        onClick={() => handleEdit(transaction)}
-                        title="Modifier"
-                      >
-                        <PencilSquare size={16} />
-                      </button>
-                      <button
-                        className="glass-btn glass-btn-warning"
-                        style={{padding: '8px 12px'}}
-                        onClick={() => handleDelete(transaction.id)}
-                        title="Supprimer"
-                      >
-                        <Trash3 size={16} />
-                      </button>
-                    </div>
+                <div className="row g-2">
+                  <div className="col-6">
+                    <small className="glass-label" style={{fontSize: '0.75rem', marginBottom: '0.25rem'}}>Compte</small>
+                    <div style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '0.9rem'}}>{getAccountName(transaction.accountId)}</div>
                   </div>
-                  <div className="row g-2">
-                    <div className="col-6">
-                      <small className="glass-label" style={{fontSize: '0.75rem', marginBottom: '0.25rem'}}>Compte</small>
-                      <div style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '0.9rem'}}>{getAccountName(transaction.accountId)}</div>
-                    </div>
-                    <div className="col-6">
-                      <small className="glass-label" style={{fontSize: '0.75rem', marginBottom: '0.25rem'}}>Catégorie</small>
-                      <div><span className="glass-badge" style={{fontSize: '0.8rem', padding: '4px 8px'}}>{transaction.category}</span></div>
-                    </div>
-                    <div className="col-12 mt-2">
-                      <small className="glass-label" style={{fontSize: '0.75rem', marginBottom: '0.25rem'}}>Description</small>
-                      <div style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '0.9rem'}}>{transaction.description}</div>
-                    </div>
+                  <div className="col-6">
+                    <small className="glass-label" style={{fontSize: '0.75rem', marginBottom: '0.25rem'}}>Catégorie</small>
+                    <div><span className="glass-badge" style={{fontSize: '0.8rem', padding: '4px 8px'}}>{transaction.category}</span></div>
+                  </div>
+                  <div className="col-12 mt-2">
+                    <small className="glass-label" style={{fontSize: '0.75rem', marginBottom: '0.25rem'}}>Description</small>
+                    <div style={{color: 'rgba(255, 255, 255, 0.9)', fontSize: '0.9rem'}}>{transaction.description}</div>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
       </>
         )}
       </div>
+      
+      <EditTransactionModal
+        transaction={editingTransaction}
+        accounts={accounts}
+        categories={categories}
+        onSave={handleSaveEdit}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };

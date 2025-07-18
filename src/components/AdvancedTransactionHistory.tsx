@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useCallback } from 'react';
 import {
   Card,
   CardContent,
@@ -14,7 +14,11 @@ import {
   Chip,
   useMediaQuery,
   useTheme,
-  Grid
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from '@mui/material';
 import {
   History,
@@ -53,6 +57,9 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
   const [selectedType, setSelectedType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
+  const amountRef = useRef<HTMLInputElement>(null);
+  const dateRef = useRef<HTMLInputElement>(null);
   const itemsPerPage = 10;
   const defaultDisplayLimit = 50;
 
@@ -109,8 +116,14 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
   };
 
   const handleSaveEdit = () => {
-    if (editingTransaction) {
-      onEditTransaction(editingTransaction);
+    if (editingTransaction && descriptionRef.current && amountRef.current && dateRef.current) {
+      const updatedTransaction = {
+        ...editingTransaction,
+        description: descriptionRef.current.value,
+        amount: parseFloat(amountRef.current.value),
+        date: dateRef.current.value
+      };
+      onEditTransaction(updatedTransaction);
       setEditingTransaction(null);
     }
   };
@@ -183,23 +196,32 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
     if (!editingTransaction) return null;
 
     return (
-      <Card sx={{ mt: 2, border: 2, borderColor: 'primary.main' }}>
-        <CardContent>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Modifier la transaction
-          </Typography>
-          
-          <Grid container spacing={2}>
+      <Dialog 
+        open={true} 
+        onClose={handleCancelEdit}
+        maxWidth="md"
+        fullWidth
+        PaperProps={{
+          sx: {
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '12px'
+          }
+        }}
+      >
+        <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Edit /> Modifier la transaction
+        </DialogTitle>
+        <DialogContent>
+          <Grid container spacing={2} sx={{ mt: 0.5 }}>
             <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
+                inputRef={amountRef}
                 label="Montant"
                 type="number"
                 fullWidth
-                value={editingTransaction.amount}
-                onChange={(e) => setEditingTransaction({
-                  ...editingTransaction,
-                  amount: parseFloat(e.target.value)
-                })}
+                defaultValue={editingTransaction.amount}
               />
             </Grid>
             
@@ -240,14 +262,11 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
             
             <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
+                inputRef={dateRef}
                 label="Date"
                 type="date"
                 fullWidth
-                value={editingTransaction.date}
-                onChange={(e) => setEditingTransaction({
-                  ...editingTransaction,
-                  date: e.target.value
-                })}
+                defaultValue={editingTransaction.date}
                 slotProps={{
                   inputLabel: { shrink: true }
                 }}
@@ -256,27 +275,23 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
             
             <Grid size={12}>
               <TextField
+                inputRef={descriptionRef}
                 label="Description"
                 fullWidth
-                value={editingTransaction.description}
-                onChange={(e) => setEditingTransaction({
-                  ...editingTransaction,
-                  description: e.target.value
-                })}
+                defaultValue={editingTransaction.description}
               />
             </Grid>
           </Grid>
-          
-          <Box sx={{ display: 'flex', gap: 1, mt: 2, justifyContent: 'flex-end' }}>
-            <Button onClick={handleCancelEdit} variant="outlined">
-              Annuler
-            </Button>
-            <Button onClick={handleSaveEdit} variant="contained">
-              Sauvegarder
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelEdit} variant="outlined">
+            Annuler
+          </Button>
+          <Button onClick={handleSaveEdit} variant="contained">
+            Sauvegarder
+          </Button>
+        </DialogActions>
+      </Dialog>
     );
   };
 

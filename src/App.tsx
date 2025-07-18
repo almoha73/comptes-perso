@@ -12,26 +12,50 @@ import type { AppData, Transaction } from './types';
 import initialData from './data.json';
 
 function App() {
-  const [data, setData] = useState<AppData>(initialData as AppData);
+  const [data, setData] = useState<AppData>(() => {
+    const savedData = localStorage.getItem('appData');
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        
+        // Validation basique de la structure
+        if (parsedData.accounts && parsedData.transactions && parsedData.categories) {
+          return parsedData;
+        } else {
+          console.log('Structure de données invalide dans localStorage, utilisation des données initiales');
+          return initialData as AppData;
+        }
+      } catch (error) {
+        console.error('Erreur lors du parsing des données sauvegardées:', error);
+        return initialData as AppData;
+      }
+    }
+    return initialData as AppData;
+  });
   const [isDirty, setIsDirty] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Sauvegarde automatique quand isDirty devient true
   useEffect(() => {
-    console.log('isDirty state changed:', isDirty);
+    if (isDirty) {
+      localStorage.setItem('appData', JSON.stringify(data));
+    }
+  }, [isDirty, data]);
+
+  // Gestion du beforeunload
+  useEffect(() => {
+    
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       if (isDirty) {
         event.preventDefault();
         event.returnValue = ''; // Standard for browser to show confirmation
-        console.log('BeforeUnload event prevented: isDirty is true');
       }
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
-    console.log('BeforeUnload event listener added.');
 
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      console.log('BeforeUnload event listener removed.');
     };
   }, [isDirty]);
 
@@ -166,13 +190,18 @@ function App() {
       }
     }
 
-    // Mettre à jour la transaction
+    // Mettre à jour la transaction (créer un nouveau tableau)
     const transactionIndex = updatedData.transactions.findIndex(t => t.id === editedTransaction.id);
-    updatedData.transactions[transactionIndex] = editedTransaction;
+    const newTransactions = [...updatedData.transactions];
+    newTransactions[transactionIndex] = editedTransaction;
+    
+    const newData = {
+      ...updatedData,
+      transactions: newTransactions
+    };
 
-    setData(updatedData);
+    setData(newData);
     setIsDirty(true);
-    console.log('Transaction edited, isDirty set to true.');
   };
 
   const handleEditDataFile = () => {
