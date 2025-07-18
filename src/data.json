@@ -6,9 +6,7 @@
     { "id": "LDD", "name": "Livret Développement Durable", "balance": 12000.00 },
     { "id": "CEL", "name": "Compte Épargne Logement", "balance": 8500.00 },
     { "id": "PEL", "name": "Plan Épargne Logement", "balance": 25000.00 },
-    { "id": "AV", "name": "Assurance Vie", "balance": 45000.00 },
-    { "id": "REVOLUT", "name": "Revolut", "balance": 0.00 },
-    { "id": "N26", "name": "N26", "balance": 0.00 }
+    { "id": "AV", "name": "Assurance Vie", "balance": 45000.00 }
   ],
   "categories": [
     "Alimentation",
@@ -23,7 +21,9 @@
     "Santé",
     "Syndic",
     "Transport",
-    "Virement"
+    "Virement",
+    "Virement N26",
+    "Virement Revolut"
   ],
   "transactions": [
     {"id": "t1", "accountId": "CCP", "type": "expense", "amount": 25.50, "category": "Alimentation", "description": "Courses au supermarché", "date": "2025-01-15"},

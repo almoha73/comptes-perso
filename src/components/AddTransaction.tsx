@@ -25,7 +25,7 @@ const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, o
   const sortedCategories = [...categories].sort();
   const sortedAccounts = [...accounts].sort((a, b) => a.name.localeCompare(b.name));
   const [amount, setAmount] = useState('');
-  const [accountId, setAccountId] = useState(sortedAccounts[0]?.id || '');
+  const [accountId, setAccountId] = useState(accounts.find(acc => acc.id === 'CCP')?.id || sortedAccounts[0]?.id || '');
   const [category, setCategory] = useState(categories[0] || '');
   const [type, setType] = useState<'income' | 'expense'>('expense');
   const [description, setDescription] = useState('');

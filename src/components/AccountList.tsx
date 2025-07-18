@@ -33,8 +33,6 @@ const iconMap: { [key: string]: React.ReactNode } = {
   CEL: <Home />,
   PEL: <Home />,
   AV: <BusinessCenter />,
-  REVOLUT: <CreditCard />,
-  N26: <AccountBalance />,
 };
 
 const AccountList: React.FC<AccountListProps> = ({ accounts, onDeleteAccount, onAddAccount }) => {

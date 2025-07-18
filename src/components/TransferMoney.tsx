@@ -10,7 +10,7 @@ interface TransferMoneyProps {
 
 const TransferMoney: React.FC<TransferMoneyProps> = ({ accounts, onTransfer }) => {
   const sortedAccounts = [...accounts].sort((a, b) => a.name.localeCompare(b.name));
-  const [fromAccount, setFromAccount] = useState(sortedAccounts[0]?.id || '');
+  const [fromAccount, setFromAccount] = useState(accounts.find(acc => acc.id === 'CCP')?.id || sortedAccounts[0]?.id || '');
   const [toAccount, setToAccount] = useState(sortedAccounts[1]?.id || '');
   const [amount, setAmount] = useState('');
 

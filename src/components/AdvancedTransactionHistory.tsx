@@ -69,26 +69,51 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
   }, [searchTerm, selectedAccount, selectedCategory, selectedType]);
 
   const filteredTransactions = useMemo(() => {
-    const sorted = transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    // Toujours trier par date (plus récent en premier)
+    const sorted = [...transactions].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     
+    // Si aucun filtre actif, limiter à 50 transactions
     if (!hasActiveFilters) {
-      // Pas de filtres : afficher seulement les 50 dernières
       return sorted.slice(0, defaultDisplayLimit);
     }
     
-    // Filtres actifs : chercher dans toutes les transactions
-    return sorted.filter(transaction => {
-      const matchesSearch = transaction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          transaction.category.toLowerCase().includes(searchTerm.toLowerCase());
+    // Filtres actifs : chercher dans toutes les transactions avec tri en temps réel
+    const filtered = sorted.filter(transaction => {
+      let matchesSearch = true;
+      
+      if (searchTerm.trim()) {
+        const searchLower = searchTerm.toLowerCase();
+        
+        // Recherche dans description et catégorie
+        const textMatch = transaction.description.toLowerCase().includes(searchLower) ||
+                         transaction.category.toLowerCase().includes(searchLower);
+        
+        // Recherche dans le montant (conversion en string pour recherche partielle)
+        const amountString = transaction.amount.toFixed(2); // "25.50"
+        const amountMatch = amountString.includes(searchTerm);
+        
+        matchesSearch = textMatch || amountMatch;
+      }
+      
       const matchesAccount = !selectedAccount || transaction.accountId === selectedAccount;
       const matchesCategory = !selectedCategory || transaction.category === selectedCategory;
       const matchesType = !selectedType || transaction.type === selectedType;
       
       return matchesSearch && matchesAccount && matchesCategory && matchesType;
     });
+    
+    return filtered;
   }, [transactions, searchTerm, selectedAccount, selectedCategory, selectedType, hasActiveFilters]);
 
+  // Réinitialiser la page à 1 quand les filtres changent
   const paginatedTransactions = useMemo(() => {
+    setCurrentPage(1); // Reset page quand les résultats changent
+    const startIndex = 0; // Toujours commencer à la page 1
+    return filteredTransactions.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredTransactions]);
+
+  // Pagination séparée pour éviter les boucles infinies
+  const displayedTransactions = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     return filteredTransactions.slice(startIndex, startIndex + itemsPerPage);
   }, [filteredTransactions, currentPage]);
@@ -311,6 +336,7 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
               size="small"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Description, catégorie ou montant (2, 25, 25.5...)"
               slotProps={{
                 input: { startAdornment: <Search sx={{ mr: 1, color: 'text.secondary' }} /> }
               }}
@@ -429,11 +455,11 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
 
         {/* Liste des transactions */}
         <Box>
-          {paginatedTransactions.map(transaction => (
+          {displayedTransactions.map(transaction => (
             <TransactionCard key={transaction.id} transaction={transaction} />
           ))}
           
-          {paginatedTransactions.length === 0 && (
+          {displayedTransactions.length === 0 && (
             <Box sx={{ textAlign: 'center', py: 4 }}>
               <Typography color="text.secondary">
                 Aucune transaction trouvée
