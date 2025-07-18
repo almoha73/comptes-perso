@@ -106,10 +106,8 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
   }, [transactions, searchTerm, selectedAccount, selectedCategory, selectedType, hasActiveFilters]);
 
   // Réinitialiser la page à 1 quand les filtres changent
-  const paginatedTransactions = useMemo(() => {
-    setCurrentPage(1); // Reset page quand les résultats changent
-    const startIndex = 0; // Toujours commencer à la page 1
-    return filteredTransactions.slice(startIndex, startIndex + itemsPerPage);
+  React.useEffect(() => {
+    setCurrentPage(1);
   }, [filteredTransactions]);
 
   // Pagination séparée pour éviter les boucles infinies
