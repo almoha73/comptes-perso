@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-
-import { ArrowRightCircleFill } from 'react-bootstrap-icons';
+import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Typography, Box, Paper, Grid } from '@mui/material';
+import { ArrowForward } from '@mui/icons-material';
 
 interface TransferMoneyProps {
   accounts: { id: string; name: string }[];
@@ -21,45 +21,60 @@ const TransferMoney: React.FC<TransferMoneyProps> = ({ accounts, onTransfer }) =
   };
 
   return (
-    <div className="glass-form mt-4 p-4">
-      <div className="mb-4">
-        <h2 className="d-flex align-items-center text-white" style={{ fontWeight: '600', fontSize: '1.25rem' }}>
-          <ArrowRightCircleFill className="me-2" size={24}/> 
-          Effectuer un virement
-        </h2>
-      </div>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="fromAccount" className="form-label glass-label">De</label>
-            <select className="form-select glass-input" id="fromAccount" value={fromAccount} onChange={(e) => setFromAccount(e.target.value)}>
-              {sortedAccounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
-            </select>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="toAccount" className="form-label glass-label">À</label>
-            <select className="form-select glass-input" id="toAccount" value={toAccount} onChange={(e) => setToAccount(e.target.value)}>
-              {sortedAccounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
-            </select>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="transferAmount" className="form-label glass-label">Montant</label>
-            <input 
-              type="number" 
-              className="form-control glass-input" 
-              id="transferAmount" 
-              value={amount} 
-              onChange={(e) => setAmount(e.target.value)} 
+    <Paper elevation={3} sx={{ p: 3, mt: 4 }}>
+      <Typography variant="h5" component="h2" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
+        <ArrowForward sx={{ mr: 1 }} />
+        Effectuer un virement
+      </Typography>
+      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+        <Grid container spacing={2}>
+          <Grid component="div" xs={12}>
+            <FormControl fullWidth>
+              <InputLabel id="from-account-label">De</InputLabel>
+              <Select
+                labelId="from-account-label"
+                id="fromAccount"
+                value={fromAccount}
+                onChange={(e) => setFromAccount(e.target.value)}
+                label="De"
+              >
+                {sortedAccounts.map(acc => <MenuItem key={acc.id} value={acc.id}>{acc.name}</MenuItem>)}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid size={12}>
+            <FormControl fullWidth>
+              <InputLabel id="to-account-label">À</InputLabel>
+              <Select
+                labelId="to-account-label"
+                id="toAccount"
+                value={toAccount}
+                onChange={(e) => setToAccount(e.target.value)}
+                label="À"
+              >
+                {sortedAccounts.map(acc => <MenuItem key={acc.id} value={acc.id}>{acc.name}</MenuItem>)}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid size={12}>
+            <TextField
+              label="Montant"
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
               placeholder="0.00"
-              required 
+              required
+              fullWidth
             />
-          </div>
-          <button type="submit" className="glass-btn glass-btn-warning px-4 py-2">
-            Transférer
-          </button>
-        </form>
-      </div>
-    </div>
+          </Grid>
+          <Grid size={12}>
+            <Button type="submit" variant="contained" color="secondary" fullWidth>
+              Transférer
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
+    </Paper>
   );
 };
 
