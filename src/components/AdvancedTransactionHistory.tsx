@@ -53,7 +53,6 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
   const [selectedType, setSelectedType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
-  const [showAllResults, setShowAllResults] = useState(false);
   const itemsPerPage = 10;
   const defaultDisplayLimit = 50;
 
