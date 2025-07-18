@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Upload, Download, Pencil } from 'react-bootstrap-icons';
+import { AppBar, Toolbar, Typography, Button, Box, useMediaQuery, useTheme } from '@mui/material';
+import { Upload, Download, Edit } from '@mui/icons-material';
 
 interface HeaderProps {
   onLoad: () => void;
@@ -9,52 +10,81 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onLoad, onSave, onEdit }) => {
-  return (
-    <header className="glass-header mb-4 p-4">
-      {/* Version desktop */}
-      <div className="d-none d-md-flex justify-content-between align-items-center">
-        <h1 className="mb-0 glass-title">
-          💰 Mes Comptes Perso
-        </h1>
-        <div>
-          <button className="glass-btn me-2" onClick={onEdit}>
-            <Pencil className="me-2" size={18}/>
-            Éditer
-          </button>
-          <button className="glass-btn me-2" onClick={onLoad}>
-            <Upload className="me-2" size={18}/>
-            Charger
-          </button>
-          <button className="glass-btn glass-btn-primary" onClick={onSave}>
-            <Download className="me-2" size={18}/>
-            Sauvegarder
-          </button>
-        </div>
-      </div>
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-      {/* Version mobile */}
-      <div className="d-md-none">
-        <div className="text-center mb-3">
-          <h1 className="mb-0 glass-title" style={{fontSize: '1.5rem'}}>
-            💰 Comptes Perso
-          </h1>
-        </div>
-        <div className="d-flex gap-1 justify-content-center">
-          <button className="glass-btn glass-btn-accessible flex-fill" onClick={onEdit}>
-            <Pencil size={16}/>
-            <span className="ms-1 d-none d-sm-inline">Éditer</span>
-          </button>
-          <button className="glass-btn glass-btn-accessible flex-fill" onClick={onLoad}>
-            <Upload size={16}/>
-            <span className="ms-1 d-none d-sm-inline">Charger</span>
-          </button>
-          <button className="glass-btn glass-btn-primary glass-btn-accessible flex-fill" onClick={onSave}>
-            <Download size={16}/>
-            <span className="ms-1 d-none d-sm-inline">Sauver</span>
-          </button>
-        </div>
-      </div>
-    </header>
+  return (
+    <AppBar position="static" sx={{ mb: 3, borderRadius: 2 }}>
+      <Toolbar 
+        sx={{ 
+          justifyContent: 'space-between', 
+          py: 1,
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'stretch' : 'center',
+          gap: isMobile ? 2 : 0
+        }}
+      >
+        <Typography 
+          variant="h1" 
+          component="h1" 
+          sx={{ 
+            fontSize: isMobile ? '1.3rem' : '2rem',
+            textAlign: isMobile ? 'center' : 'left',
+            mb: 0
+          }}
+        >
+          💰 {isMobile ? 'Comptes Perso' : 'Mes Comptes Perso'}
+        </Typography>
+        
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            gap: 1, 
+            flexDirection: isMobile ? 'row' : 'row',
+            justifyContent: isMobile ? 'space-between' : 'flex-end',
+            width: isMobile ? '100%' : 'auto'
+          }}
+        >
+          <Button
+            variant="outlined"
+            startIcon={isMobile ? undefined : <Edit />}
+            onClick={onEdit}
+            size="small"
+            sx={{ 
+              flex: isMobile ? 1 : 'none',
+              fontSize: isMobile ? '0.8rem' : '0.875rem'
+            }}
+          >
+            {isMobile ? 'Édit' : 'Éditer'}
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={isMobile ? undefined : <Upload />}
+            onClick={onLoad}
+            size="small"
+            sx={{ 
+              flex: isMobile ? 1 : 'none',
+              fontSize: isMobile ? '0.8rem' : '0.875rem'
+            }}
+          >
+            {isMobile ? 'Load' : 'Charger'}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={isMobile ? undefined : <Download />}
+            onClick={onSave}
+            size="small"
+            sx={{ 
+              flex: isMobile ? 1 : 'none',
+              fontSize: isMobile ? '0.8rem' : '0.875rem'
+            }}
+          >
+            {isMobile ? 'Save' : 'Sauvegarder'}
+          </Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
 

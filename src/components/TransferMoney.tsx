@@ -28,7 +28,7 @@ const TransferMoney: React.FC<TransferMoneyProps> = ({ accounts, onTransfer }) =
       </Typography>
       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
         <Grid container spacing={2}>
-          <Grid component="div" xs={12}>
+          <Grid size={12}>
             <FormControl fullWidth>
               <InputLabel id="from-account-label">De</InputLabel>
               <Select

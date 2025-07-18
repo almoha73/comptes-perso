@@ -1,5 +1,13 @@
 import React from 'react';
-import { Bank, PiggyBank, House, Briefcase, Wallet, CashCoin } from 'react-bootstrap-icons';
+import { Typography, Grid, Card, CardContent, Box, Avatar } from '@mui/material';
+import { 
+  AccountBalance, 
+  Savings, 
+  Home, 
+  BusinessCenter, 
+  AccountBalanceWallet, 
+  CreditCard 
+} from '@mui/icons-material';
 
 interface Account {
   id: string;
@@ -12,47 +20,56 @@ interface AccountListProps {
 }
 
 const iconMap: { [key: string]: React.ReactNode } = {
-  CCP: <Bank size={24} className="text-primary" />,
-  JOINT: <Wallet size={24} className="text-info" />,
-  LA: <PiggyBank size={24} className="text-success" />,
-  LDD: <PiggyBank size={24} className="text-warning" />,
-  CEL: <House size={24} className="text-danger" />,
-  PEL: <House size={24} className="text-danger" />,
-  AV: <Briefcase size={24} className="text-dark" />,
-  REVOLUT: <CashCoin size={24} className="text-success" />,
-  N26: <Bank size={24} className="text-secondary" />,
+  CCP: <AccountBalance />,
+  JOINT: <AccountBalanceWallet />,
+  LA: <Savings />,
+  LDD: <Savings />,
+  CEL: <Home />,
+  PEL: <Home />,
+  AV: <BusinessCenter />,
+  REVOLUT: <CreditCard />,
+  N26: <AccountBalance />,
 };
 
 const AccountList: React.FC<AccountListProps> = ({ accounts }) => {
   return (
-    <section className="mb-4">
-      <h2 className="mb-4 glass-section-title">
+    <Box component="section" sx={{ mb: 4 }}>
+      <Typography variant="h2" sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 1 }}>
         📊 Vue d'ensemble
-      </h2>
-      <div className="row g-3">
-        {accounts.map(account => (
-          <div key={account.id} className="col-md-6 col-lg-4 fade-in-up">
-            <div className="glass-card h-100 p-3">
-              <div className="d-flex align-items-center">
-                <div className="me-3">
-                  <div className="glass-icon">
-                    {iconMap[account.id] || <CashCoin size={24} />}
-                  </div>
-                </div>
-                <div>
-                  <h5 className="mb-1 text-white" style={{ fontWeight: '600' }}>
+      </Typography>
+      
+      <Grid container spacing={2}>
+        {accounts.map((account, index) => (
+          <Grid key={account.id} size={{ xs: 12, sm: 6, lg: 4 }}>
+            <Card 
+              className="fade-in-up" 
+              sx={{ 
+                height: '100%',
+                transition: 'transform 0.2s ease',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                }
+              }}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Avatar sx={{ bgcolor: 'primary.main', width: 48, height: 48 }}>
+                  {iconMap[account.id] || <CreditCard />}
+                </Avatar>
+                <Box>
+                  <Typography variant="h6" component="h3" sx={{ fontWeight: 600 }}>
                     {account.name}
-                  </h5>
-                  <p className="glass-balance mb-0">
+                  </Typography>
+                  <Typography variant="h5" sx={{ fontWeight: 600, color: 'text.primary' }}>
                     {account.balance.toFixed(2)} €
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
         ))}
-      </div>
-    </section>
+      </Grid>
+    </Box>
   );
 };
 

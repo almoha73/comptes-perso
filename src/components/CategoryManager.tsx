@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { TagsFill, PlusCircle } from 'react-bootstrap-icons';
+import { 
+  Card, 
+  CardContent, 
+  Typography, 
+  TextField, 
+  Button, 
+  Box, 
+  Chip, 
+  IconButton,
+  Collapse
+} from '@mui/material';
+import { Category, Add, Close } from '@mui/icons-material';
 
 interface CategoryManagerProps {
   categories: string[];
@@ -26,67 +37,65 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ categories, onUpdateC
 
   if (!showManager) {
     return (
-      <div className="mb-3">
-        <button 
-          type="button" 
-          className="glass-btn btn-sm"
+      <Box sx={{ mb: 2 }}>
+        <Button 
+          variant="outlined"
+          startIcon={<Category />}
           onClick={() => setShowManager(true)}
+          size="small"
         >
-          <TagsFill className="me-2" size={16} />
           Gérer les catégories
-        </button>
-      </div>
+        </Button>
+      </Box>
     );
   }
 
   return (
-    <div className="glass-form mb-3 p-4">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h6 className="mb-0 text-white" style={{ fontWeight: '600' }}>
-          <TagsFill className="me-2" size={18} />
-          Gestion des catégories
-        </h6>
-        <button 
-          type="button" 
-          className="btn-close btn-close-white" 
-          onClick={() => setShowManager(false)}
-        ></button>
-      </div>
-      <div>
-        <form onSubmit={handleAddCategory} className="mb-3">
-          <div className="input-group">
-            <input
-              type="text"
-              className="form-control glass-input"
-              placeholder="Nouvelle catégorie"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-            />
-            <button type="submit" className="glass-btn glass-btn-success">
-              <PlusCircle className="me-1" size={16} />
-              Ajouter
-            </button>
-          </div>
-        </form>
+    <Card sx={{ mb: 2 }}>
+      <CardContent>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Category /> Gestion des catégories
+          </Typography>
+          <IconButton 
+            onClick={() => setShowManager(false)}
+            size="small"
+          >
+            <Close />
+          </IconButton>
+        </Box>
         
-        <div className="row g-2">
+        <Box component="form" onSubmit={handleAddCategory} sx={{ mb: 3, display: 'flex', gap: 1 }}>
+          <TextField
+            size="small"
+            placeholder="Nouvelle catégorie"
+            value={newCategory}
+            onChange={(e) => setNewCategory(e.target.value)}
+            fullWidth
+          />
+          <Button 
+            type="submit" 
+            variant="contained" 
+            color="secondary"
+            startIcon={<Add />}
+          >
+            Ajouter
+          </Button>
+        </Box>
+        
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
           {categories.map(category => (
-            <div key={category} className="col-auto">
-              <div className="glass-badge">
-                <span className="me-2">{category}</span>
-                <button
-                  type="button"
-                  className="btn-close btn-close-white"
-                  style={{ fontSize: '0.6em' }}
-                  onClick={() => handleDeleteCategory(category)}
-                  title={`Supprimer ${category}`}
-                ></button>
-              </div>
-            </div>
+            <Chip
+              key={category}
+              label={category}
+              onDelete={() => handleDeleteCategory(category)}
+              deleteIcon={<Close />}
+              variant="outlined"
+            />
           ))}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 

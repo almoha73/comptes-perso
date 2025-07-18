@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container } from '@mui/material';
 import './App.css';
 import Header from './components/Header';
 import AccountList from './components/AccountList';
@@ -259,36 +259,32 @@ Exemple :
   };
 
   return (
-    <div className="container mt-4" style={{ minHeight: '100vh' }}>
+    <Container maxWidth="lg" className="main-container">
       <Header onLoad={() => fileInputRef.current?.click()} onSave={handleFileDownload} onEdit={handleEditDataFile} />
       <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileUpload} accept=".json"/>
       
       <main>
         <AccountList accounts={data.accounts} />
-        <div className="row g-4 mb-4">
-          <div className="col-md-6">
+        
+        <div style={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 2, marginBottom: 4 }}>
+          <div>
             <CategoryManager categories={data.categories} onUpdateCategories={handleUpdateCategories} />
             <AddTransaction accounts={data.accounts} categories={data.categories} onAddTransaction={handleAddTransaction} />
           </div>
-          <div className="col-md-6">
+          <div>
             <TransferMoney accounts={data.accounts} onTransfer={handleTransfer} />
           </div>
         </div>
         
-        {/* Historique des transactions */}
-        <div className="row mb-5">
-          <div className="col-12">
-            <AdvancedTransactionHistory 
-              transactions={data.transactions}
-              accounts={data.accounts}
-              categories={data.categories}
-              onEditTransaction={handleEditTransaction}
-              onDeleteTransaction={handleDeleteTransaction}
-            />
-          </div>
-        </div>
+        <AdvancedTransactionHistory 
+          transactions={data.transactions}
+          accounts={data.accounts}
+          categories={data.categories}
+          onEditTransaction={handleEditTransaction}
+          onDeleteTransaction={handleDeleteTransaction}
+        />
       </main>
-    </div>
+    </Container>
   );
 }
 
