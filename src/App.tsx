@@ -287,13 +287,71 @@ Exemple :
     setIsDirty(true);
   };
 
+  const handleDeleteAccount = (accountId: string, deleteOrTransferTransactions: 'delete' | 'transfer', targetAccountId?: string) => {
+    const updatedData = { ...data };
+    
+    // Trouver le compte à supprimer
+    const accountToDelete = updatedData.accounts.find(acc => acc.id === accountId);
+    if (!accountToDelete) return;
+
+    // Gérer les transactions du compte supprimé
+    const accountTransactions = updatedData.transactions.filter(t => t.accountId === accountId);
+    
+    if (deleteOrTransferTransactions === 'delete') {
+      // Supprimer toutes les transactions du compte
+      updatedData.transactions = updatedData.transactions.filter(t => t.accountId !== accountId);
+    } else if (deleteOrTransferTransactions === 'transfer' && targetAccountId) {
+      // Transférer les transactions vers un autre compte
+      const targetAccount = updatedData.accounts.find(acc => acc.id === targetAccountId);
+      if (targetAccount) {
+        // Mettre à jour l'accountId des transactions et ajuster les soldes
+        accountTransactions.forEach(transaction => {
+          const updatedTransaction = updatedData.transactions.find(t => t.id === transaction.id);
+          if (updatedTransaction) {
+            updatedTransaction.accountId = targetAccountId;
+            
+            // Ajuster le solde du compte de destination
+            if (updatedTransaction.type === 'expense') {
+              targetAccount.balance -= updatedTransaction.amount;
+            } else {
+              targetAccount.balance += updatedTransaction.amount;
+            }
+          }
+        });
+      }
+    }
+
+    // Supprimer le compte
+    updatedData.accounts = updatedData.accounts.filter(acc => acc.id !== accountId);
+    
+    setData(updatedData);
+    setIsDirty(true);
+    console.log(`Account ${accountId} deleted, isDirty set to true.`);
+  };
+
+  const handleAddAccount = (newAccount: { id: string; name: string; balance: number }) => {
+    const updatedData = { ...data };
+    
+    // Vérifier que l'ID n'existe pas déjà
+    if (updatedData.accounts.some(acc => acc.id === newAccount.id)) {
+      throw new Error(`Un compte avec l'ID "${newAccount.id}" existe déjà`);
+    }
+    
+    // Ajouter le nouveau compte
+    updatedData.accounts = [...updatedData.accounts, newAccount];
+    
+    setData(updatedData);
+    setIsDirty(true);
+    console.log(`Account ${newAccount.id} added, isDirty set to true.`);
+  };
+
   return (
     <Container maxWidth="lg" className="main-container">
       <Header onLoad={() => fileInputRef.current?.click()} onSave={handleFileDownload} onEdit={handleEditDataFile} />
       <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileUpload} accept=".json"/>
       
       <main>
-        <AccountList accounts={data.accounts} />
+        <AccountList accounts={data.accounts} onDeleteAccount={handleDeleteAccount} onAddAccount={handleAddAccount} />
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16, marginBottom: 32 }}>
           <div>
