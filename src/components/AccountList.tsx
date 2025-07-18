@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bank, PiggyBank, House, Briefcase, Heart, Wallet, CashCoin } from 'react-bootstrap-icons';
+import { Bank, PiggyBank, House, Briefcase, Wallet, CashCoin } from 'react-bootstrap-icons';
 
 interface Account {
   id: string;

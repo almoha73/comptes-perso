@@ -13,7 +13,8 @@
   "categories": [
     "Alimentation",
     "Autre",
-    "Habillement",
+    "Demo",
+    "Habillement", 
     "Factures",
     "Free",
     "Loisirs",
@@ -21,7 +22,29 @@
     "Restaurant/Bar",
     "Santé",
     "Syndic",
-    "Transport"
+    "Transport",
+    "Virement"
   ],
-  "transactions": []
+  "transactions": [
+    {"id": "t1", "accountId": "CCP", "type": "expense", "amount": 25.50, "category": "Alimentation", "description": "Courses au supermarché", "date": "2025-01-15"},
+    {"id": "t2", "accountId": "JOINT", "type": "expense", "amount": 45.00, "category": "Restaurant/Bar", "description": "Dîner au restaurant", "date": "2025-01-14"},
+    {"id": "t3", "accountId": "CCP", "type": "income", "amount": 1500.00, "category": "Autre", "description": "Salaire janvier", "date": "2025-01-01"},
+    {"id": "t4", "accountId": "CCP", "type": "expense", "amount": 60.00, "category": "Transport", "description": "Essence voiture", "date": "2025-01-10"},
+    {"id": "t5", "accountId": "LA", "type": "expense", "amount": 120.00, "category": "Loisirs", "description": "Cinéma et shopping", "date": "2025-01-08"},
+    {"id": "t6", "accountId": "CCP", "type": "expense", "amount": 80.00, "category": "Factures", "description": "Électricité", "date": "2025-01-05"},
+    {"id": "t7", "accountId": "JOINT", "type": "expense", "amount": 95.50, "category": "Alimentation", "description": "Courses Leclerc", "date": "2025-01-03"},
+    {"id": "t8", "accountId": "CCP", "type": "expense", "amount": 35.00, "category": "Transport", "description": "Parking centre-ville", "date": "2024-12-28"},
+    {"id": "t9", "accountId": "CCP", "type": "income", "amount": 1500.00, "category": "Autre", "description": "Salaire décembre", "date": "2024-12-01"},
+    {"id": "t10", "accountId": "JOINT", "type": "expense", "amount": 250.00, "category": "Loisirs", "description": "Cadeaux Noël", "date": "2024-12-20"},
+    {"id": "t11", "accountId": "LA", "type": "expense", "amount": 45.00, "category": "Restaurant/Bar", "description": "Déjeuner", "date": "2024-12-15"},
+    {"id": "t12", "accountId": "CCP", "type": "expense", "amount": 30.00, "category": "Alimentation", "description": "Boulangerie", "date": "2024-12-10"},
+    {"id": "t13", "accountId": "CCP", "type": "expense", "amount": 150.00, "category": "Santé", "description": "Pharmacie et médecin", "date": "2024-12-05"},
+    {"id": "t14", "accountId": "JOINT", "type": "expense", "amount": 85.00, "category": "Factures", "description": "Internet Free", "date": "2024-12-01"},
+    {"id": "t15", "accountId": "CCP", "type": "income", "amount": 1500.00, "category": "Autre", "description": "Salaire novembre", "date": "2024-11-01"},
+    {"id": "t16", "accountId": "CCP", "type": "expense", "amount": 75.00, "category": "Transport", "description": "Train Paris", "date": "2024-11-25"},
+    {"id": "t17", "accountId": "LA", "type": "expense", "amount": 120.00, "category": "Habillement", "description": "Vêtements hiver", "date": "2024-11-20"},
+    {"id": "t18", "accountId": "JOINT", "type": "expense", "amount": 65.00, "category": "Alimentation", "description": "Marché", "date": "2024-11-15"},
+    {"id": "t19", "accountId": "CCP", "type": "expense", "amount": 40.00, "category": "Loisirs", "description": "Magazine et livre", "date": "2024-11-10"},
+    {"id": "t20", "accountId": "CCP", "type": "expense", "amount": 200.00, "category": "Santé", "description": "Dentiste", "date": "2024-11-05"}
+  ]
 }

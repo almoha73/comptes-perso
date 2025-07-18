@@ -9,7 +9,7 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 50%, #2b6cb0 100%);
   background-attachment: fixed;
   min-height: 100vh;
   color: white;
@@ -25,9 +25,9 @@ body::before {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.3) 0%, transparent 50%);
   animation: backgroundShift 20s ease-in-out infinite;
   z-index: -1;
 }
@@ -39,22 +39,22 @@ body::before {
 
 /* Container with glassmorphism */
 .container {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   margin-top: 2rem;
   padding: 2rem;
 }
 
 /* Glass card styling */
 .glass-card {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -79,17 +79,17 @@ body::before {
 
 .glass-card:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 /* Header styling */
 .glass-header {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
 }
@@ -123,11 +123,11 @@ body::before {
 
 /* Form styling */
 .glass-form {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
 }
@@ -145,9 +145,9 @@ body::before {
 
 /* Input styling */
 .glass-input {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
   backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
   border-radius: 12px !important;
   color: white !important;
   font-weight: 500 !important;
@@ -155,15 +155,12 @@ body::before {
 }
 
 .glass-input:focus {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15) !important;
   color: white !important;
 }
 
-.glass-input::placeholder {
-  color: rgba(255, 255, 255, 0.7) !important;
-}
 
 /* Fix dropdown options visibility */
 .glass-input option {
@@ -176,11 +173,17 @@ body::before {
   background: #34495e !important;
 }
 
+/* Amélioration des placeholders */
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 500 !important;
+}
+
 /* Button styling */
 .glass-btn {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 12px;
   color: white;
   font-weight: 600;
@@ -206,48 +209,48 @@ body::before {
 }
 
 .glass-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.6);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   color: white;
 }
 
 .glass-btn-primary {
-  background: rgba(59, 130, 246, 0.3);
-  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.4);
+  border-color: rgba(59, 130, 246, 0.6);
 }
 
 .glass-btn-primary:hover {
-  background: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.6);
   color: white;
 }
 
 .glass-btn-success {
-  background: rgba(16, 185, 129, 0.3);
-  border-color: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.4);
+  border-color: rgba(16, 185, 129, 0.6);
 }
 
 .glass-btn-success:hover {
-  background: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.6);
   color: white;
 }
 
 .glass-btn-warning {
-  background: rgba(245, 158, 11, 0.3);
-  border-color: rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.4);
+  border-color: rgba(245, 158, 11, 0.6);
 }
 
 .glass-btn-warning:hover {
-  background: rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.6);
   color: white;
 }
 
 /* Icon styling */
 .glass-icon {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -259,9 +262,9 @@ body::before {
 }
 
 .glass-icon:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.35);
   transform: scale(1.1);
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
 }
 
 /* Balance styling */
@@ -299,9 +302,9 @@ body::before {
 
 /* Badge styling */
 .glass-badge {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 20px;
   color: white;
   font-weight: 500;
@@ -314,7 +317,7 @@ body::before {
 }
 
 .glass-badge:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.35);
   transform: scale(1.05);
 }
 
@@ -379,11 +382,27 @@ body::before {
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* Focus states for accessibility */
+/* Focus states for accessibility - Améliorés */
 .glass-btn:focus,
 .glass-input:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.5);
-  outline-offset: 2px;
+  outline: 3px solid rgba(255, 255, 255, 0.8) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4) !important;
+}
+
+.glass-btn:focus-visible,
+.glass-input:focus-visible {
+  outline: 3px solid #feca57 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 1px #feca57, 0 0 8px rgba(254, 202, 87, 0.3) !important;
+}
+
+/* Focus pour les éléments cliquables */
+.cursor-pointer:focus,
+[onclick]:focus,
+button:focus {
+  outline: 2px solid rgba(254, 202, 87, 0.8) !important;
+  outline-offset: 2px !important;
 }
 
 /* Loading states */
@@ -395,4 +414,397 @@ body::before {
 /* Smooth transitions */
 button, input, select, .glass-card, .glass-form {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== AMÉLIORATIONS D'ACCESSIBILITÉ ===== */
+
+/* Contrastes améliorés */
+.text-muted-improved {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.text-secondary-improved {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Bordures plus visibles */
+.glass-border-improved {
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Boutons avec zones de touch plus grandes (minimum 44px) */
+.glass-btn-accessible {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  padding: 12px 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+/* Boutons mobiles encore plus grands */
+@media (max-width: 768px) {
+  .glass-btn-mobile {
+    min-height: 48px !important;
+    min-width: 48px !important;
+    padding: 14px 18px !important;
+    font-size: 1.1rem !important;
+  }
+  
+  .glass-btn-mobile-small {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding: 12px 16px !important;
+  }
+}
+
+/* États de hover améliorés */
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Améliorations pour les éléments interactifs */
+.clickable-area {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clickable-area:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+/* Textes plus contrastés */
+.high-contrast-text {
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-weight: 500 !important;
+}
+
+.medium-contrast-text {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Skip links pour lecteurs d'écran */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 9999;
+  border-radius: 4px;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Améliorations pour les tables */
+.table th {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.table td {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Amélioration des badges */
+.glass-badge {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  font-weight: 600 !important;
+}
+
+/* Reduction de mouvement pour accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .fade-in-up {
+    animation: none !important;
+  }
+}
+
+/* ===== AMÉLIORATIONS HISTORIQUE MOBILE ===== */
+
+/* Fix pour l'affichage des montants avec € en mobile */
+@media (max-width: 768px) {
+  .glass-balance {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    display: inline-block !important;
+    line-height: 1.2 !important;
+  }
+  
+  /* Conteneurs des transactions en mobile */
+  .transaction-mobile-container {
+    padding: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Espacement amélioré pour les éléments flex en mobile */
+  .mobile-flex-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+  
+  /* Boutons d'action en mobile - plus compacts mais accessibles */
+  .glass-btn-mobile-small {
+    min-height: 40px !important;
+    min-width: 40px !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  /* Amélioration du conteneur des boutons d'action */
+  .mobile-actions-container {
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+    display: flex !important;
+    gap: 0.25rem !important;
+  }
+  
+  /* Espacement amélioré pour les badges en mobile */
+  .glass-badge {
+    font-size: 0.75rem !important;
+    padding: 4px 8px !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Amélioration de l'affichage des montants */
+  .mobile-amount-display {
+    min-width: fit-content !important;
+    margin-right: 0.5rem !important;
+  }
+  
+  /* Conteneur principal des transactions */
+  .transaction-content-mobile {
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+  
+  /* Fix pour les lignes de texte en mobile */
+  .mobile-text-line {
+    width: 100% !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+}
+
+/* Améliorations générales pour les cartes de transaction */
+.glass-card .border-bottom:last-child {
+  border-bottom: none !important;
+}
+
+/* Espacement vertical amélioré */
+@media (max-width: 768px) {
+  .glass-card {
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .glass-form {
+    padding: 1rem !important;
+  }
+  
+  /* Amélioration des filtres en mobile */
+  .row.g-3 {
+    margin-bottom: 1rem !important;
+  }
+  
+  .col-md-3, .col-md-2, .col-md-1\.5 {
+    margin-bottom: 0.75rem !important;
+  }
+}
+
+/* ===== OPTIMISATIONS SPÉCIFIQUES IPHONE SE (375px et moins) ===== */
+@media (max-width: 375px) {
+  /* Container principal - utilise toute la largeur */
+  .container {
+    padding: 0.25rem !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  /* Cartes plus larges */
+  .glass-card, .glass-form {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+    padding: 0.5rem !important;
+  }
+  
+  /* Contenu des cartes */
+  .glass-form > div {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  /* Transactions plus compactes */
+  .transaction-mobile-container {
+    padding: 0.5rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Texte plus petit mais lisible */
+  .glass-balance {
+    font-size: 1rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  .glass-badge {
+    font-size: 0.7rem !important;
+    padding: 3px 6px !important;
+    max-width: 80px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  
+  /* Boutons plus petits mais accessibles */
+  .glass-btn-mobile-small {
+    min-height: 36px !important;
+    min-width: 36px !important;
+    padding: 6px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  /* Espacement réduit entre éléments */
+  .mobile-flex-container {
+    gap: 0.25rem !important;
+  }
+  
+  .mobile-actions-container {
+    gap: 0.125rem !important;
+  }
+  
+  /* Texte description sur plusieurs lignes si nécessaire */
+  .mobile-text-line {
+    font-size: 0.85rem !important;
+    line-height: 1.3 !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+  }
+  
+  /* Amélioration des montants */
+  .mobile-amount-display {
+    min-width: auto !important;
+    max-width: 120px !important;
+    overflow: visible !important;
+  }
+  
+  /* Header plus compact */
+  .glass-section-title {
+    font-size: 1.2rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Filtres en colonne sur iPhone SE */
+  .row.g-3 > div {
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Pagination plus compacte */
+  .glass-badge {
+    font-size: 0.7rem !important;
+    padding: 3px 6px !important;
+  }
+  
+  /* Amélioration de la zone de contenu mobile */
+  .transaction-content-mobile {
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  /* Fix pour éviter le débordement horizontal */
+  .mobile-flex-container {
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+  }
+  
+  .mobile-amount-display {
+    flex-shrink: 0 !important;
+    margin-right: 0.25rem !important;
+  }
+  
+  /* Titre principal plus petit */
+  .glass-title {
+    font-size: 1.3rem !important;
+  }
+  
+  /* Labels plus compacts */
+  .glass-label {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Inputs plus compacts */
+  .glass-input {
+    padding: 0.5rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  /* Fix pour les padding des sections */
+  .glass-form .p-4 {
+    padding: 0.5rem !important;
+  }
+  
+  .glass-form .px-2 {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+  
+  /* Amélioration des en-têtes de cartes */
+  .glass-form > .d-flex {
+    padding: 0.75rem 0.5rem 0.5rem 0.5rem !important;
+  }
+}
+
+/* ===== OPTIMISATIONS POUR ÉCRANS TRÈS PETITS (320px et moins) ===== */
+@media (max-width: 320px) {
+  .container {
+    padding: 0.125rem !important;
+  }
+  
+  .glass-balance {
+    font-size: 0.9rem !important;
+  }
+  
+  .glass-badge {
+    font-size: 0.65rem !important;
+    padding: 2px 4px !important;
+    max-width: 60px !important;
+  }
+  
+  .glass-btn-mobile-small {
+    min-height: 32px !important;
+    min-width: 32px !important;
+    padding: 4px !important;
+  }
+  
+  .mobile-text-line {
+    font-size: 0.8rem !important;
+  }
 }

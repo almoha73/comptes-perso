@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TagsFill, PlusCircle, Trash } from 'react-bootstrap-icons';
+import { TagsFill, PlusCircle } from 'react-bootstrap-icons';
 
 interface CategoryManagerProps {
   categories: string[];

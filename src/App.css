@@ -1,42 +1,188 @@
+/* Optimisations PWA et mobile */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Interface mobile-first */
+.container {
+  padding: 0.75rem !important;
+  margin: 0 !important;
+  max-width: 100% !important;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Boutons plus grands pour mobile */
+.btn {
+  min-height: 44px;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
+/* Cards adaptées mobile */
 .card {
-  padding: 2em;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: none;
+  border-radius: 12px;
 }
 
-.read-the-docs {
-  color: #888;
+.card-header {
+  background: linear-gradient(135deg, #0d6efd, #6c757d);
+  color: white;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 1rem;
+  font-weight: 600;
+}
+
+/* Formulaires mobiles */
+.form-control, .form-select {
+  min-height: 44px;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+/* Tables responsives */
+.table-responsive {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.table {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  border-top: none;
+  font-weight: 600;
+  color: #495057;
+}
+
+/* Adaptations spécifiques mobile */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem !important;
+  }
+  
+  .col-md-6 {
+    margin-bottom: 1rem;
+  }
+  
+  .table-responsive {
+    font-size: 0.8rem;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-group .btn {
+    border-radius: 8px !important;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* PWA safe areas pour iPhone */
+@supports (padding: max(0px)) {
+  .container {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Alignement parfait des cartes expandables */
+.expandable-card-desktop {
+  display: grid !important;
+  grid-template-columns: 60px 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.expandable-chevron {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+}
+
+.expandable-title {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.expandable-badge {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.expandable-amounts {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+/* Layout mobile pour cartes expandables */
+.expandable-card-mobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.expandable-mobile-left {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  gap: 8px;
+}
+
+.expandable-mobile-chevron {
+  flex-shrink: 0;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.expandable-mobile-content {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.expandable-mobile-amounts {
+  text-align: right;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+/* Scrolling amélioré */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix pour les inputs iOS */
+input[type="number"] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+/* Styles pour tablettes */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .glass-card {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+  }
 }

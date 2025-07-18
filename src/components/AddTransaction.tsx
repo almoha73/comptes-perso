@@ -2,11 +2,12 @@
 import React, { useState } from 'react';
 
 import { PlusCircleFill } from 'react-bootstrap-icons';
+import type { Transaction, Account } from '../types';
 
 interface AddTransactionProps {
-  accounts: { id: string; name: string }[];
+  accounts: Account[];
   categories: string[];
-  onAddTransaction: (transaction: any) => void;
+  onAddTransaction: (transaction: Transaction) => void;
 }
 
 const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, onAddTransaction }) => {
@@ -15,18 +16,22 @@ const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, o
   const [amount, setAmount] = useState('');
   const [accountId, setAccountId] = useState(sortedAccounts[0]?.id || '');
   const [category, setCategory] = useState(categories[0] || '');
-  const [type, setType] = useState('expense');
+  const [type, setType] = useState<'income' | 'expense'>('expense');
+  const [description, setDescription] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onAddTransaction({
-      id: new Date().toISOString(),
+      id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
       amount: parseFloat(amount),
       accountId,
       category,
-      type
+      type,
+      description: description || `Transaction ${type === 'expense' ? 'de dépense' : 'de revenu'}`,
+      date: new Date().toISOString().split('T')[0]
     });
     setAmount('');
+    setDescription('');
   };
 
   return (
@@ -65,10 +70,21 @@ const AddTransaction: React.FC<AddTransactionProps> = ({ accounts, categories, o
           </div>
           <div className="mb-3">
             <label htmlFor="type" className="form-label glass-label">Type</label>
-            <select className="form-select glass-input" id="type" value={type} onChange={(e) => setType(e.target.value)}>
+            <select className="form-select glass-input" id="type" value={type} onChange={(e) => setType(e.target.value as 'income' | 'expense')}>
               <option value="expense">Dépense</option>
               <option value="income">Revenu</option>
             </select>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="description" className="form-label glass-label">Description (optionnelle)</label>
+            <input 
+              type="text" 
+              className="form-control glass-input" 
+              id="description" 
+              value={description} 
+              onChange={(e) => setDescription(e.target.value)} 
+              placeholder="Décrivez cette transaction..."
+            />
           </div>
           <button type="submit" className="glass-btn glass-btn-success px-4 py-2">
             Ajouter
