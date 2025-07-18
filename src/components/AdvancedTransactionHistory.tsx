@@ -149,9 +149,10 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
             <Typography 
               variant="h6" 
               sx={{ 
-                color: transaction.type === 'expense' ? 'error.main' : 'success.main',
+                color: transaction.type === 'expense' ? '#ff6b6b' : '#2ecc71',
                 fontWeight: 600,
-                minWidth: 'fit-content'
+                minWidth: 'fit-content',
+                textShadow: '0 1px 2px rgba(0,0,0,0.3)'
               }}
             >
               {formatAmount(transaction.amount, transaction.type)}
@@ -361,13 +362,21 @@ const AdvancedTransactionHistory: React.FC<AdvancedTransactionHistoryProps> = ({
             <Chip 
               icon={<TrendingUp />}
               label={`+${filteredTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0).toFixed(2)} €`}
-              color="success"
+              sx={{ 
+                borderColor: '#2ecc71',
+                color: '#2ecc71',
+                '& .MuiChip-icon': { color: '#2ecc71' }
+              }}
               variant="outlined"
             />
             <Chip 
               icon={<TrendingDown />}
               label={`-${filteredTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0).toFixed(2)} €`}
-              color="error"
+              sx={{ 
+                borderColor: '#ff6b6b',
+                color: '#ff6b6b',
+                '& .MuiChip-icon': { color: '#ff6b6b' }
+              }}
               variant="outlined"
             />
           </Box>

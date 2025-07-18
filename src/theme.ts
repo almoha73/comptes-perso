@@ -43,16 +43,24 @@ export const theme = createTheme({
       secondary: 'rgba(255, 255, 255, 0.8)',
     },
     error: {
-      main: '#ef4444',
+      main: '#ff6b6b',
+      light: '#ff8a8a',
+      dark: '#e74c3c',
     },
     warning: {
-      main: '#f59e0b',
+      main: '#feca57',
+      light: '#fed36b',
+      dark: '#f39c12',
     },
     info: {
-      main: '#06b6d4',
+      main: '#4ecdc4',
+      light: '#6bccc4',
+      dark: '#26a69a',
     },
     success: {
-      main: '#10b981',
+      main: '#2ecc71',
+      light: '#58d68d',
+      dark: '#27ae60',
     },
   },
   typography: {
